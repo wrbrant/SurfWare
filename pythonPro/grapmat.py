@@ -16,23 +16,26 @@ class tris3:
         self.z = [0, 0, 0, 10]
         #return ax1, x, y, z
     def midpoint(self):
-        a = random.randint(0,len(self.x)-1) #select first starting point
-        for i in range(1000):
-            b = random.randint(0, len(self.x)-1) #select other starting point #TODO: make sure they are not the same point
-            logging.warning(f"a is {a} and b is {b} ")
-            self.x.append((self.x[a] + self.x[b]) / 2)
-            self.y.append((self.y[a] + self.y[b]) / 2)
-            self.z.append((self.z[a] + self.z[b]) / 2)
-            a = b
+        a = random.randint(0,3) #select first starting point
+        for i in range(5000):
+            b = random.randint(0, 3) #select other starting point, which must be one of the orginal vertexes #TODO: make sure they are not the same point
+            logging.debug(f"a is {a} and b is {b} ")
+            # [-1] will grab the last element in the list
+            self.x.append((self.x[-1] + self.x[b]) / 2)
+            self.y.append((self.y[-1] + self.y[b]) / 2)
+            self.z.append((self.z[-1] + self.z[b]) / 2)
 
     def display(self):
         self.ax1.scatter(self.x, self.y, self.z, c = 'm', marker = 'o')
         self.ax1.set_xlabel('x-axis')
         self.ax1.set_ylabel('y-axis')
         self.ax1.set_zlabel('z-axis')
+        logging.info(self.x)
+        logging.info(self.y)
+        logging.info(self.z)
         plt.show()
 if __name__ == "__main__":
-    logging.basicConfig(filename='example.log', encoding='utf-8', level=logging.WARNING)
+    logging.basicConfig(filename='example.log', encoding='utf-8', level=logging.INFO)
     j = tris3(1, 2, 3, 4, 5)
     j.midpoint()
     j.display()
