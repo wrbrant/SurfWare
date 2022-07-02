@@ -1,3 +1,4 @@
 # SurfWare
 ## Author: Will Brant
-SurfWare begins with a simple idea - make software fun and personable.
+SurfWare begins with a simple idea - I gotta store my projects somewhere
+
