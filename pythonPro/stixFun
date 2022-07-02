@@ -1,0 +1,29 @@
+from stix2 import AttackPattern, Campaign, CourseOfAction, Grouping, Identity, Incident, Indicator, Infrastructure, IntrusionSet, Location, Malware, MalwareAnalysis, Note, ObservedData, Opinion, Report, ThreatActor, Tool, Vulnerability
+from stix2 import Relationship, Sighting, Artifact, AutonomousSystem, Directory, DomainName, EmailAddress, EmailMessage, File, IPv4Address, IPv6Address, MACAddress, Mutex, NetworkTraffic, Process, Software, URL, UserAccount, WindowsRegistryKey, X509Certificate
+import logging, json, uuid, os, sys
+def UUID5(bundle_input, bundle_output):
+    bundle = {}
+    idPrint = []
+    #for object in bundle_input:
+        #if bundle type is a SCO and (split id and grab the uuid) is UUIDv4:
+            #idPrint.append[id]
+            #check object type
+            #allvalues = []
+            #for field in object: 
+                #grab field
+                #lets  append valueString that is value="valueInfo", or value="valueInfo if it is last"
+            #type = Type(valueString)
+            #put in bundle
+        # else:
+            #put it in bundle
+
+
+if __name__ == "__main__":
+    bundle_input = sys.argv[1]
+    bundle_output = sys.argv[2]
+    bundle_check = sys.argv[3]
+
+    if bundle_check == 0:
+        UUID5(bundle_input, bundle_output)
+    else: 
+        UUID5(bundle_output, bundle_output)
