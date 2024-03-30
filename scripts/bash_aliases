@@ -1,36 +1,31 @@
 #-----------------------------------------ALIASES------------------------------------------------
 #-----------------------------------------UTILITY------------------------------------------------
 #----SHVM----
-alias remount="sudo /usr/bin/vmhgfs-fuse .host:/ /mnt/hgfs -o subtype=vmhgfs-fuse,allow_other"
-alias share="cd /mnt/hgfs/shareVM ; ls"
-alias shls="ls /mnt/hgfs/shareVM"
-alias cptool='function _(){ cp $1 /mnt/hgfs/shareVM ; }; _'
-alias mvtool='function _(){ mv $1 /mnt/hgfs/shareVM ; }; _'
-# alias ftool='function _(){ bash ~/projects/SURF/scripts/fromTool.sh $1 ;}; _' #NOTE: Is now a bin/ script
+alias remount="sudo /usr/bin/vmhgfs-fuse .host:/ /mnt/hgfs -o subtype=vmhgfs-fuse,allow_other" #remounts the shared folder
+alias share="cd /mnt/hgfs/shareVM ; ls"                                    #navigates to the shared folder and lists the contents
+alias shls="ls /mnt/hgfs/shareVM"                                          #lists the contents of the shared directory
+alias cptool='function _(){ cp $1 /mnt/hgfs/shareVM ; }; _'                #takes a file as arg. copies file from shared folder to current directory
+alias mvtool='function _(){ mv $1 /mnt/hgfs/shareVM ; }; _'                #takes a file as arg. moves file from shared folder to current directory
 #----TOOL----
-# alias clr='bash ~/projects/SURF/scripts/myclear.sh'           #NOTE: Is now a bin/ script
-# alias fixnet='bash ~/projects/SURF/scripts/netMngr.sh'        #NOTE: Is now a bin/ script
-alias ttm="cd ~/projects/ttm/ ; poetry run python3 ttm.py"
-alias mytop="watch -n .5 free -l -h"
-alias chownBrant="sudo -k ; sudo chown branwr:branwr . -R ; sudo -k "
-alias clip='function _(){ echo $1 | xclip -selection clipboard ; }; _'
+alias ttm="cd ~/projects/ttm/ ; poetry run python3 ttm.py"                 #opens the ttm timer
+alias mytop="watch -n .5 free -l -h"                                       #does a fancy process watch
+alias chownBrant="sudo -k ; sudo chown branwr:branwr . -R ; sudo -k "      #recursively changes the ownership of cwd to branwr:branwr 
+alias clip='function _(){ echo $1 | xclip -selection clipboard ; }; _'     #takes string as arg. copies string to clipboard
 #----OPEN----
-alias cody="codium --ignore-certificate-errors"
-alias goto='function _(){ code --goto "$1" ;}; _'
-alias notev="cd ~/Documents/Notes ; codium --ignore-certificate-errors ."
-alias noteb="cd ~/Documents/Notes ; obsidian . "
-
+alias cody="codium --ignore-certificate-errors"                            #opens codium without certificate errors
+alias goto='function _(){ code --goto "$1" ;}; _'                          #takes a file as arg. opens file in vs-code
+alias notev="cd ~/Documents/Notes ; codium --ignore-certificate-errors ."  #opens Notes directory in codium
+alias noteb="cd ~/Documents/Notes ; obsidian . "                           #opens Notes directory in obsidian
 #----BASH----
-alias bopen="nano ~/.bashrc"
-
-alias rope="source ~/.bashrc" 
+alias bopen="nano ~/.bashrc"                                               #opens bashrc in nano
+alias rope="source ~/.bashrc"                                              #source bashrc
 #----NAVI----
-alias docs="cd ~/Documents ; ls"
-alias down="cd ~/Downloads ; ls"
-alias poi="cd ~/projects ; ls"
-alias surf="cd ~/projects/SURF/"
-alias bin="cd ~/bin"
-alias notes="cd ~/Documents/Notes && git status"
+alias docs="cd ~/Documents ; ls"                                           #navigates to Documents directory and lists contents
+alias down="cd ~/Downloads ; ls"                                           #navigates to Downloads directory and lists contents
+alias poi="cd ~/projects ; ls"                                             #navigates to projects directory and lists contents
+alias surf="cd ~/projects/SURF/ ; ls"                                      #navigates to SURF directory and lists contents
+alias bin="cd ~/bin ; ls"                                                  #navigates to bin directory and lists contents
+alias notes="cd ~/Documents/Notes && git status"                           #navigates to projects directory and checks git status
 #----DOCK----
 alias dock="sudo docker"
 alias stigf="sudo docker start stigf"
@@ -50,7 +45,6 @@ alias dea="cd /home/branwr/projects/DEA/"
 alias deaf="cd /home/branwr/projects/DEA/fpga-mu"
 alias deam="cd /home/branwr/projects/DEA/m220_sw/Target/source/sdk-linux"
 alias deaw="cd /home/branwr/projects/DEA/web_m220"
-alias tower='echo "%TWireless\$7" | xclip -selection clipboard'
 alias totow="tower ; ssh sil-605005@192.168.163.60 -X"
 alias tojon="tower ; ssh branwr@192.168.163.102 -X"
 alias ipadd='function _(){ echo "ip addr add 10.10.$1.1/24 dev br0" | xclip -selection clipboard ;}; _'

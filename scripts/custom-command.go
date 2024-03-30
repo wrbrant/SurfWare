@@ -5,21 +5,26 @@ import (
 	"io/ioutil"
 	"os"
 	"os/user"
+	"path"
 	"path/filepath"
 	"regexp"
 	"strings"
 )
 
 var helpString = `
-=====custom-command help=====
+=========custom-command help=========
 Helps organize custom commands -- all user made aliases and scripts on the system
 
+Usage:
+	custom-command [[-A -s -a]-u] [-h]
 Flags:
--A, --all		prints all aliases and scripts
--s, --scripts	prints all scripts
--a, --aliases	prints all aliases
--u, --unused	prints all aliases and scripts that haven't been used in awhile
--h, --help		help for custom-command
+	-A, --all		prints all aliases and scripts
+	-s, --scripts	prints all scripts
+	-a, --aliases	prints all aliases
+	-u, --unused	of the commands, prints those that haven't been used in awhile. Used with -A, -s, or -a
+	-h, --help		help for custom-command
+	add				starts a cli for adding an alias or function
+	edit			starts a cli for editing an alias or function
 `
 
 var cmds []byte
@@ -29,6 +34,16 @@ var commands []string
 var all bool
 var scripts bool
 var aliases bool
+var unused bool
+var add bool
+var edit bool
+
+type custom struct {
+	typ      string //alias or function
+	command  string //the actual command
+	category string //optional to go under
+	help     string //an optional help string to go along with it
+}
 
 func main() {
 	currUser, err := user.Current()
@@ -43,15 +58,61 @@ func main() {
 	for _, arg := range args {
 		switch arg {
 		case "-A", "--all":
+			all = true
 		case "-s", "--scripts":
-			getScripts()
+			scripts = true
 		case "-a", "--aliases":
+			aliases = true
 		case "-u", "--unused":
-			getBashHistory()
-			printUnused()
+			unused = true
 		case "-h", "--help":
+			fmt.Println(helpString)
+			os.Exit(0)
+		case "add":
+			add = true
+		case "edit":
+			edit = true
+		default:
+			fmt.Println("ERROR: unrecognized flag: " + arg)
+			fmt.Println(helpString)
+			os.Exit(1)
 		}
 	}
+	if add {
+		customAdd()
+		return
+	}
+	if edit {
+		customEdit()
+		return
+	}
+	if all {
+		getScripts()
+		getAliases()
+	} else {
+		if scripts {
+			getScripts()
+		}
+		if aliases {
+			getAliases()
+		}
+	}
+	if !unused {
+		fmt.Println("Commands Available:")
+		for _, c := range commands {
+			fmt.Println("  * " + c)
+		}
+	} else {
+		getBashHistory()
+		printUnused()
+	}
+
+}
+
+func customAdd() {
+
+}
+func customEdit() {
 
 }
 
@@ -76,7 +137,14 @@ func getScripts() {
 }
 
 func getAliases() {
-
+	data, err := os.ReadFile(path.Join(dpath_bin, "bash_aliases"))
+	chk(err)
+	// strs := strings.Split(string(data), "\n")
+	re := regexp.MustCompile(`(?:\nalias|\nfunction)\s+(\w+)`)
+	matches := re.FindAllStringSubmatch(string(data), -1)
+	for _, match := range matches {
+		commands = append(commands, match[1])
+	}
 }
 
 func printUnused() {
