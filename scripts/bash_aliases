@@ -27,29 +27,27 @@ alias surf="cd ~/projects/SURF/ ; ls"                                      #navi
 alias bin="cd ~/bin ; ls"                                                  #navigates to bin directory and lists contents
 alias notes="cd ~/Documents/Notes && git status"                           #navigates to projects directory and checks git status
 #----DOCK----
-alias dock="sudo docker"
-alias stigf="sudo docker start stigf"
-alias synf="sudo docker start synapse"
+alias dock="sudo docker"                                                   #shorthand for 'sudo docker'
 #----FORM----
-alias lah="ls -lah"
-alias duh="du -hd 1"
-alias tree1="tree . -L 1"
-alias tree2="tree . -L 2"
-alias treen='function _(){ tree -L $1 ;}; _'
-alias mgrep='function _(){ grep -rn $1 . ;}; _'
+alias lah="ls -lah"                                                        #shorthand for 'ls -lah'      
+alias duh="du -hd 1"                                                       #shorthand for 'du -hd 1'       
+alias tree1="tree . -L 1"                                                  #prints a 1 level deep tree in cwd               
+alias tree2="tree . -L 2"                                                  #prints a 2 level deep tree in cwd                       
+alias treen='function _(){ tree -L $1 ;}; _'                               #takes an int arg. prints an n level deep tree in cwd       
+alias mgrep='function _(){ grep -rn $1 . ;}; _'                            #takes a string as arg. recursively greps for string in cwd, printing line nums       
 #----GITS----
-alias gits="git status"
-alias gitl="git log -3"
+alias gits="git status"                                                    #shorthand for 'git status'
+alias gitl="git log -3"                                                    #shorthand for 'git log -3'
 #-----------------------------------------DEA-----------------------------------------------
-alias dea="cd /home/branwr/projects/DEA/"
-alias deaf="cd /home/branwr/projects/DEA/fpga-mu"
-alias deam="cd /home/branwr/projects/DEA/m220_sw/Target/source/sdk-linux"
-alias deaw="cd /home/branwr/projects/DEA/web_m220"
-alias totow="tower ; ssh sil-605005@192.168.163.60 -X"
-alias tojon="tower ; ssh branwr@192.168.163.102 -X"
-alias ipadd='function _(){ echo "ip addr add 10.10.$1.1/24 dev br0" | xclip -selection clipboard ;}; _'
+alias dea="cd /home/branwr/projects/DEA/"                                  #navigates to DEA dir
+alias deaf="cd /home/branwr/projects/DEA/fpga-mu"                          #navigates to fpga-mu dir
+alias deam="cd /home/branwr/projects/DEA/m220_sw/Target/source/sdk-linux"  #navigates to sdk-linux dir
+alias deaw="cd /home/branwr/projects/DEA/web_m220"                         #navigates to web_m220 dir
+alias totow="tower ; ssh sil-605005@192.168.163.60 -X"                     #gets password and ssh's into tower
+alias tojon="tower ; ssh branwr@192.168.163.102 -X"                        #gets password and ssh's into john's vm
+alias ipadd='function _(){ echo "ip addr add 10.10.$1.1/24 dev br0" | xclip -selection clipboard ;}; _' #takes in a third octet for an ipv4 as arg. copies the ip adding command to clipboard
 alias keyad='function _(){ ssh-copy-id -i /home/branwr/.ssh/id_rsa.pub $1 ;}; _' #where $1 is the ip you are trying to make a key with
-alias lophp="tail -f /var/log/apache2/error.log"
+alias lophp="tail -f /var/log/apache2/error.log"                           #tails the php error logs
 #-----------------------------------------CYOPIPE-----------------------------------------------
 alias cyo="cd /home/branwr/projects/CSR/CATCH/"
 alias catch="cd ~/projects/CSR/CATCH/catch"
