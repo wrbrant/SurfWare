@@ -6,10 +6,10 @@ alias share="cd /mnt/hgfs/shareVM ; ls"
 alias shls="ls /mnt/hgfs/shareVM"
 alias cptool='function _(){ cp $1 /mnt/hgfs/shareVM ; }; _'
 alias mvtool='function _(){ mv $1 /mnt/hgfs/shareVM ; }; _'
-alias ftool='function _(){ bash ~/projects/SURF/scripts/fromTool.sh $1 ;}; _'
+# alias ftool='function _(){ bash ~/projects/SURF/scripts/fromTool.sh $1 ;}; _' #NOTE: Is now a bin/ script
 #----TOOL----
-alias clr='bash ~/projects/SURF/scripts/myclear.sh'
-alias fixnet='bash ~/projects/SURF/scripts/netMngr.sh'
+# alias clr='bash ~/projects/SURF/scripts/myclear.sh'           #NOTE: Is now a bin/ script
+# alias fixnet='bash ~/projects/SURF/scripts/netMngr.sh'        #NOTE: Is now a bin/ script
 alias ttm="cd ~/projects/ttm/ ; poetry run python3 ttm.py"
 alias mytop="watch -n .5 free -l -h"
 alias chownBrant="sudo -k ; sudo chown branwr:branwr . -R ; sudo -k "
@@ -29,6 +29,7 @@ alias docs="cd ~/Documents ; ls"
 alias down="cd ~/Downloads ; ls"
 alias poi="cd ~/projects ; ls"
 alias surf="cd ~/projects/SURF/"
+alias bin="cd ~/bin"
 alias notes="cd ~/Documents/Notes && git status"
 #----DOCK----
 alias dock="sudo docker"
