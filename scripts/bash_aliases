@@ -1,0 +1,87 @@
+#-----------------------------------------ALIASES------------------------------------------------
+#-----------------------------------------UTILITY------------------------------------------------
+#----SHVM----
+alias remount="sudo /usr/bin/vmhgfs-fuse .host:/ /mnt/hgfs -o subtype=vmhgfs-fuse,allow_other"
+alias share="cd /mnt/hgfs/shareVM ; ls"
+alias shls="ls /mnt/hgfs/shareVM"
+alias cptool='function _(){ cp $1 /mnt/hgfs/shareVM ; }; _'
+alias mvtool='function _(){ mv $1 /mnt/hgfs/shareVM ; }; _'
+alias ftool='function _(){ bash ~/projects/SURF/scripts/fromTool.sh $1 ;}; _'
+#----TOOL----
+alias clr='bash ~/projects/SURF/scripts/myclear.sh'
+alias fixnet='bash ~/projects/SURF/scripts/netMngr.sh'
+alias ttm="cd ~/projects/ttm/ ; poetry run python3 ttm.py"
+alias mytop="watch -n .5 free -l -h"
+alias chownBrant="sudo -k ; sudo chown branwr:branwr . -R ; sudo -k "
+alias clip='function _(){ echo $1 | xclip -selection clipboard ; }; _'
+#----OPEN----
+alias cody="codium --ignore-certificate-errors"
+alias goto='function _(){ code --goto "$1" ;}; _'
+alias notev="cd ~/Documents/Notes ; codium --ignore-certificate-errors ."
+alias noteb="cd ~/Documents/Notes ; obsidian . "
+
+#----BASH----
+alias bopen="nano ~/.bashrc"
+
+alias rope="source ~/.bashrc" 
+#----NAVI----
+alias docs="cd ~/Documents ; ls"
+alias down="cd ~/Downloads ; ls"
+alias poi="cd ~/projects ; ls"
+alias surf="cd ~/projects/SURF/"
+alias notes="cd ~/Documents/Notes && git status"
+#----DOCK----
+alias dock="sudo docker"
+alias stigf="sudo docker start stigf"
+alias synf="sudo docker start synapse"
+#----FORM----
+alias lah="ls -lah"
+alias duh="du -hd 1"
+alias tree1="tree . -L 1"
+alias tree2="tree . -L 2"
+alias treen='function _(){ tree -L $1 ;}; _'
+alias mgrep='function _(){ grep -rn $1 . ;}; _'
+#----GITS----
+alias gits="git status"
+alias gitl="git log -3"
+#-----------------------------------------DEA-----------------------------------------------
+alias dea="cd /home/branwr/projects/DEA/"
+alias deaf="cd /home/branwr/projects/DEA/fpga-mu"
+alias deam="cd /home/branwr/projects/DEA/m220_sw/Target/source/sdk-linux"
+alias deaw="cd /home/branwr/projects/DEA/web_m220"
+alias tower='echo "%TWireless\$7" | xclip -selection clipboard'
+alias totow="tower ; ssh sil-605005@192.168.163.60 -X"
+alias tojon="tower ; ssh branwr@192.168.163.102 -X"
+alias ipadd='function _(){ echo "ip addr add 10.10.$1.1/24 dev br0" | xclip -selection clipboard ;}; _'
+alias keyad='function _(){ ssh-copy-id -i /home/branwr/.ssh/id_rsa.pub $1 ;}; _' #where $1 is the ip you are trying to make a key with
+alias lophp="tail -f /var/log/apache2/error.log"
+#-----------------------------------------CYOPIPE-----------------------------------------------
+alias cyo="cd /home/branwr/projects/CSR/CATCH/"
+alias catch="cd ~/projects/CSR/CATCH/catch"
+alias cgui="cd ~/projects/CSR/CATCH/cgui/"
+#cause I will forget, e is executable, s is shell, p is pipeline
+alias ecyo="cd /home/branwr/projects/CSR/CATCH/catch && go build ."
+alias scyo="cd /home/branwr/projects/CSR/CATCH/cgui && go run ."
+alias pcyo="ecyo && scyo"
+alias rsyn="rm /home/branwr/projects/CSR/CATCH/catch/goSynapse"
+
+alias syn1="sudo docker exec -it cortex00 /bin/bash"
+alias syn2="sudo docker exec -it synapse python3 -m synapse.tools.storm cell://vertex/storage"
+
+alias jet="ssh brant@192.168.1.125"
+alias sshyn="ssh branwr@192.168.131.129"
+
+alias dlog="cat logging/DLOG.txt"
+alias elog="cat logging/ELOG.txt"
+alias wlog="cat logging/WLOG.txt"
+alias ilog="cat logging/ILOG.txt"
+
+alias m2d='function _(){ pandoc -o $1.docx -f markdown -t docx $1.md ;}; _'
+
+
+function pmec() {
+        local input="$1"
+        git add . && git commit -m "$input" && git push 
+}
+
+#-----------------------------------------------------------------------------------------------
