@@ -27,33 +27,44 @@ Flags:
 	edit			starts a cli for editing an alias or function
 `
 
-var cmds []byte
-var fpath_bash_history string
-var dpath_bin string
-var commands []string
-var all bool
-var scripts bool
-var aliases bool
-var unused bool
-var add bool
-var edit bool
+var (
+	cmds               []byte
+	fpath_bash_history string
+	fpath_bash_aliases string
+	dpath_bin          string
+	commands           []string
+	all                bool
+	scripts            bool
+	aliases            bool
+	unused             bool
+	add                bool
+	edit               bool
+	help               bool
+	helpMeCmds         []string
+	addMeCmds          []string
+	editMeCmds         []string
+)
 
 type custom struct {
-	typ      string //alias or function
+	typeOf   string //the type, whether it is an alias or a straight function
 	command  string //the actual command
-	category string //optional to go under
+	category string //optional category to go under
 	help     string //an optional help string to go along with it
 }
+
+var allAliases = make(map[string]custom)
 
 func main() {
 	currUser, err := user.Current()
 	chk(err)
 	fpath_bash_history = filepath.Join(currUser.HomeDir, ".bash_history")
-	dpath_bin = filepath.Join(currUser.HomeDir, "bin")
+	fpath_bash_aliases = filepath.Join(currUser.HomeDir, ".bash_aliases")
 
+	dpath_bin = filepath.Join(currUser.HomeDir, "bin")
 	args := os.Args[1:]
 	if len(args) == 0 {
-		fmt.Printf(helpString)
+		fmt.Println(helpString)
+		os.Exit(0)
 	}
 	for _, arg := range args {
 		switch arg {
@@ -66,47 +77,68 @@ func main() {
 		case "-u", "--unused":
 			unused = true
 		case "-h", "--help":
-			fmt.Println(helpString)
-			os.Exit(0)
+			help = true
 		case "add":
 			add = true
 		case "edit":
 			edit = true
 		default:
-			fmt.Println("ERROR: unrecognized flag: " + arg)
-			fmt.Println(helpString)
-			os.Exit(1)
+			if add {
+				addMeCmds = append(addMeCmds, arg)
+				add = false
+			} else if edit {
+				editMeCmds = append(editMeCmds, arg)
+				edit = false
+			} else {
+				helpMeCmds = append(helpMeCmds, arg)
+			}
 		}
 	}
-	if add {
+	switch true {
+	case len(addMeCmds) > 0:
+		customLoad()
 		customAdd()
 		return
-	}
-	if edit {
+	case len(editMeCmds) > 0:
+		customLoad()
 		customEdit()
 		return
-	}
-	if all {
+	case all:
+		scripts, aliases = true, true
+	case scripts:
 		getScripts()
+	case aliases:
 		getAliases()
-	} else {
-		if scripts {
-			getScripts()
-		}
-		if aliases {
-			getAliases()
-		}
-	}
-	if !unused {
-		fmt.Println("Commands Available:")
-		for _, c := range commands {
-			fmt.Println("  * " + c)
-		}
-	} else {
-		getBashHistory()
+	case unused:
+		getBashHistory() //these run if unused is true
 		printUnused()
 	}
+	fmt.Println("Commands Available:")
+	for _, c := range commands {
+		fmt.Println("  * " + c)
+	}
+}
 
+func customLoad() {
+	if _, err := os.Stat(fpath_bash_aliases); err != nil {
+		fmt.Println(fpath_bash_aliases + " did not exist")
+		os.Exit(0)
+	}
+	var err error
+	buff, err := os.ReadFile(fpath_bash_aliases)
+	chk(err)
+	preg := regexp.MustCompile(`(?:#----(\w+)----|alias\s*(\w+)=((?:".*"|'.*')\s*)#(.*)|function\s*(\w*)\(\)\s*({[\s\w\W\n]*}))`)
+	matches := preg.FindAllStringSubmatch(string(buff), -1)
+	cat := ""
+	for _, match := range matches {
+		if match[1] != "" {
+			cat = match[1]
+		} else if match[5] != "" {
+			allAliases[match[5]] = custom{typeOf: "function", command: match[7], category: cat, help: match[6]}
+		} else {
+			allAliases[match[2]] = custom{typeOf: "alias", command: match[3], category: cat, help: match[4]}
+		}
+	}
 }
 
 func customAdd() {
@@ -122,7 +154,7 @@ func getBashHistory() {
 		os.Exit(0)
 	}
 	var err error
-	cmds, _ = os.ReadFile(fpath_bash_history)
+	cmds, err = os.ReadFile(fpath_bash_history)
 	chk(err)
 }
 

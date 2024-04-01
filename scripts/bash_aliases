@@ -49,30 +49,31 @@ alias ipadd='function _(){ echo "ip addr add 10.10.$1.1/24 dev br0" | xclip -sel
 alias keyad='function _(){ ssh-copy-id -i /home/branwr/.ssh/id_rsa.pub $1 ;}; _' #where $1 is the ip you are trying to make a key with
 alias lophp="tail -f /var/log/apache2/error.log"                           #tails the php error logs
 #-----------------------------------------CYOPIPE-----------------------------------------------
-alias cyo="cd /home/branwr/projects/CSR/CATCH/"
-alias catch="cd ~/projects/CSR/CATCH/catch"
-alias cgui="cd ~/projects/CSR/CATCH/cgui/"
-#cause I will forget, e is executable, s is shell, p is pipeline
-alias ecyo="cd /home/branwr/projects/CSR/CATCH/catch && go build ."
-alias scyo="cd /home/branwr/projects/CSR/CATCH/cgui && go run ."
-alias pcyo="ecyo && scyo"
-alias rsyn="rm /home/branwr/projects/CSR/CATCH/catch/goSynapse"
+alias cyo="cd /home/branwr/projects/CSR/CATCH/"                            #
+alias catch="cd ~/projects/CSR/CATCH/catch"                                #
+alias cgui="cd ~/projects/CSR/CATCH/cgui/"                                 #
+#cause I will forget, e is executable, s is shell, p is pipeline      
+alias ecyo="cd /home/branwr/projects/CSR/CATCH/catch && go build ."        #
+alias scyo="cd /home/branwr/projects/CSR/CATCH/cgui && go run ."           #
+alias pcyo="ecyo && scyo"                                                  #
+alias ccyo="cd /home/branwr/projects/CSR/CATCH/catch && go run ."
+alias rsyn="rm /home/branwr/projects/CSR/CATCH/catch/goSynapse"            #
 
-alias syn1="sudo docker exec -it cortex00 /bin/bash"
-alias syn2="sudo docker exec -it synapse python3 -m synapse.tools.storm cell://vertex/storage"
+alias syn1="sudo docker exec -it cortex00 /bin/bash"                       #
+alias syn2="sudo docker exec -it synapse python3 -m synapse.tools.storm cell://vertex/storage" #
 
-alias jet="ssh brant@192.168.1.125"
-alias sshyn="ssh branwr@192.168.131.129"
+alias jet="ssh brant@192.168.1.125"                                        #
+alias sshyn="ssh branwr@192.168.131.129"                                   #
 
-alias dlog="cat logging/DLOG.txt"
-alias elog="cat logging/ELOG.txt"
-alias wlog="cat logging/WLOG.txt"
-alias ilog="cat logging/ILOG.txt"
+alias dlog="cat logging/DLOG.txt"                                          #
+alias elog="cat logging/ELOG.txt"                                          #
+alias wlog="cat logging/WLOG.txt"                                          #
+alias ilog="cat logging/ILOG.txt"                                          #
 
-alias m2d='function _(){ pandoc -o $1.docx -f markdown -t docx $1.md ;}; _'
+alias m2d='function _(){ pandoc -o $1.docx -f markdown -t docx $1.md ;}; _' #
 
 
-function pmec() {
+function pmec() {                                                          #
         local input="$1"
         git add . && git commit -m "$input" && git push 
 }
