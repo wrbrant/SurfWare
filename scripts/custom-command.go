@@ -94,25 +94,30 @@ func main() {
 			}
 		}
 	}
-	switch true {
-	case len(addMeCmds) > 0:
+	if len(addMeCmds) > 0 {
 		customLoad()
 		customAdd()
 		return
-	case len(editMeCmds) > 0:
+	} else if len(editMeCmds) > 0 {
 		customLoad()
 		customEdit()
 		return
-	case all:
+	}
+	if all {
 		scripts, aliases = true, true
-	case scripts:
+	}
+	if scripts {
 		getScripts()
-	case aliases:
+	}
+	if aliases {
 		getAliases()
-	case unused:
+	}
+	if unused {
 		getBashHistory() //these run if unused is true
 		printUnused()
+		return
 	}
+
 	fmt.Println("Commands Available:")
 	for _, c := range commands {
 		fmt.Println("  * " + c)
@@ -182,7 +187,7 @@ func getAliases() {
 func printUnused() {
 	var unfound []string
 	for _, cmd := range commands {
-		if found := regexp.MustCompile(fmt.Sprintf(`\n\s*%s\s*\n`, cmd)).Find(cmds); found == nil {
+		if found := regexp.MustCompile(fmt.Sprintf(`\n*\s*%s\s*.*\n*`, cmd)).Find(cmds); found == nil {
 			unfound = append(unfound, cmd)
 		}
 	}
