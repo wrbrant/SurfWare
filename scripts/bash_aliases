@@ -56,7 +56,7 @@ alias cgui="cd ~/projects/CSR/CATCH/cgui/"                                 #
 alias ecyo="cd /home/branwr/projects/CSR/CATCH/catch && go build ."        #
 alias scyo="cd /home/branwr/projects/CSR/CATCH/cgui && go run ."           #
 alias pcyo="ecyo && scyo"                                                  #
-alias ccyo="cd /home/branwr/projects/CSR/CATCH/catch && go run ."
+alias ccyo="cd /home/branwr/projects/CSR/CATCH/catch && go run . collection"
 alias rsyn="rm /home/branwr/projects/CSR/CATCH/catch/goSynapse"            #
 
 alias syn1="sudo docker exec -it cortex00 /bin/bash"                       #
