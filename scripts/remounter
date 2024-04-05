@@ -1,0 +1,3 @@
+#!/bin/bash
+
+ls /mnt/hgfs/shareVM 1> /dev/null || (echo -e "remounting now\n" ; sudo /usr/bin/vmhgfs-fuse .host:/ /mnt/hgfs -o subtype=vmhgfs-fuse,allow_other)
