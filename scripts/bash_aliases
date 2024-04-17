@@ -45,6 +45,8 @@ alias deam="cd /home/branwr/projects/DEA/m220_sw/Target/source/sdk-linux"  #navi
 alias deaw="cd /home/branwr/projects/DEA/web_m220"                         #navigates to web_m220 dir
 alias totow="tower ; ssh sil-605005@192.168.163.60 -X"                     #gets password and ssh's into tower
 alias tojon="tower ; ssh branwr@192.168.163.102 -X"                        #gets password and ssh's into john's vm
+alias cpjon="tower ; deaf ; scp -r ./* branwr@192.168.163.102:/home/branwr/fpga-mu/ && tojon"     #copies the fpgamu directory to jons vm
+
 alias ipadd='function _(){ echo "ip addr add 10.10.$1.1/24 dev br0" | xclip -selection clipboard ;}; _' #takes in a third octet for an ipv4 as arg. copies the ip adding command to clipboard
 alias keyad='function _(){ ssh-copy-id -i /home/branwr/.ssh/id_rsa.pub $1 ;}; _' #where $1 is the ip you are trying to make a key with
 alias lophp="tail -f /var/log/apache2/error.log"                           #tails the php error logs
@@ -56,11 +58,12 @@ alias ecyo="cd /home/branwr/projects/CSR/CATCH/catch && go build ."        #'e' 
 alias scyo="cd /home/branwr/projects/CSR/CATCH/cgui && go run ."           #'s' stands for shell. navigates to to cgui and runs the shell gui
 alias pcyo="ecyo && scyo"                                                  #'p' stands for pipeline. runs ecyo and then scyo
 alias ccyo="cd /home/branwr/projects/CSR/CATCH/catch && go run . collection" #'c' stands for collection. navigates to catch and runs collection
-
+alias docyo="sudo docker start neo4j stig"                                 #starts neo4j and stig for cyo
 alias dlog="cat logging/DLOG.txt"                                          #cats dlog
 alias elog="cat logging/ELOG.txt"                                          #cats elog
 alias wlog="cat logging/WLOG.txt"                                          #cats wlog
 alias ilog="cat logging/ILOG.txt"                                          #cats ilog
+alias sstig="nvm use 21.6.2 && cd /home/branwr/projects/CSR/STIG/ && npm start" #starts the source built version of stig
 
 alias m2d='function _(){ pandoc -o $1.docx -f markdown -t docx $1.md ;}; _' #given a .docx file name BEFORE the .docx extension, converts it to markdown
 
