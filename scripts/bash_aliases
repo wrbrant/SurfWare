@@ -34,7 +34,11 @@ alias duh="du -hd 1"                                                       #shor
 alias tree1="tree . -L 1"                                                  #prints a 1 level deep tree in cwd               
 alias tree2="tree . -L 2"                                                  #prints a 2 level deep tree in cwd                       
 alias treen='function _(){ tree -L $1 ;}; _'                               #takes an int arg. prints an n level deep tree in cwd       
-alias mgrep='function _(){ grep -rn $1 . ;}; _'                            #takes a string as arg. recursively greps for string in cwd, printing line nums       
+
+function mgrep(){							   #takes a string as arg. recursively greps for string in cwd, printing line nums
+	local input="$1"
+	grep -rn $1 . 
+}       
 #----GITS----
 alias gits="git status"                                                    #shorthand for 'git status'
 alias gitl="git log -3"                                                    #shorthand for 'git log -3'
@@ -50,6 +54,8 @@ alias cpjon="tower ; deaf ; scp -r ./* branwr@192.168.163.102:/home/branwr/fpga-
 alias ipadd='function _(){ echo "ip addr add 10.10.$1.1/24 dev br0" | xclip -selection clipboard ;}; _' #takes in a third octet for an ipv4 as arg. copies the ip adding command to clipboard
 alias keyad='function _(){ ssh-copy-id -i /home/branwr/.ssh/id_rsa.pub $1 ;}; _' #where $1 is the ip you are trying to make a key with
 alias lophp="tail -f /var/log/apache2/error.log"                           #tails the php error logs
+alias tunjon="ssh -L 2999:localhost:3000 branwr@192.168.163.102 -N"
+alias tunrad='function _(){ ssh -L 3000:localhost:80 root@10.10.$1.1 -N ;}; _'
 #-----------------------------------------CYOPIPE-----------------------------------------------
 alias cyo="cd /home/branwr/projects/CSR/CATCH/"                            #navigates to big CATCH
 alias catch="cd ~/projects/CSR/CATCH/catch"                                #navigates to small catch
@@ -64,7 +70,7 @@ alias elog="cat logging/ELOG.txt"                                          #cats
 alias wlog="cat logging/WLOG.txt"                                          #cats wlog
 alias ilog="cat logging/ILOG.txt"                                          #cats ilog
 alias sstig="nvm use 21.6.2 && cd /home/branwr/projects/CSR/STIG/ && npm start" #starts the source built version of stig
-
+alias tunstig="ssh -L 3000:localhost:3000 branwr@catchdev1 -N"
 alias m2d='function _(){ pandoc -o $1.docx -f markdown -t docx $1.md ;}; _' #given a .docx file name BEFORE the .docx extension, converts it to markdown
 
 function pmec() {                                                          #push mechanic: given a commit string, adds all, commits, and pushes
