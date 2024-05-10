@@ -37,7 +37,7 @@ alias treen='function _(){ tree -L $1 ;}; _'                               #take
 
 function mgrep(){							   #takes a string as arg. recursively greps for string in cwd, printing line nums
 	local input="$1"
-	grep -rn $1 . 
+	grep -rn "$input" . 
 }       
 #----GITS----
 alias gits="git status"                                                    #shorthand for 'git status'
