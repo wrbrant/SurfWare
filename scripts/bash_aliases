@@ -19,6 +19,7 @@ alias noteb="cd ~/Documents/Notes ; obsidian . "                           #open
 #----BASH----
 alias bopen="nano ~/.bashrc"                                               #opens bashrc in nano
 alias rope="source ~/.bashrc"                                              #source bashrc
+alias hosts="sudo nano /etc/hosts"
 #----NAVI----
 alias docs="cd ~/Documents ; ls"                                           #navigates to Documents directory and lists contents
 alias down="cd ~/Downloads ; ls"                                           #navigates to Downloads directory and lists contents
@@ -42,7 +43,14 @@ function mgrep(){							   #takes a string as arg. recursively greps for string 
 #----GITS----
 alias gits="git status"                                                    #shorthand for 'git status'
 alias gitl="git log -3"                                                    #shorthand for 'git log -3'
-#-----------------------------------------DEA-----------------------------------------------
+function pmec() {                                                          #push mechanic: given a commit string, adds all, commits, and pushes
+        local input="$1"
+        git add . && git commit -m "$input" && git push 
+}
+#-----------------------------------------D520--------------------------------------------------
+alias d52="cd ~/projects/D52/"
+alias phen="cd ~/projects/D52/phenom"
+#-----------------------------------------DEA---------------------------------------------------
 alias dea="cd /home/branwr/projects/DEA/"                                  #navigates to DEA dir
 alias deaf="cd /home/branwr/projects/DEA/fpga-mu"                          #navigates to fpga-mu dir
 alias deam="cd /home/branwr/projects/DEA/m220_sw/Target/source/sdk-linux"  #navigates to sdk-linux dir
@@ -54,8 +62,9 @@ alias cpjon="tower ; deaf ; scp -r ./* branwr@192.168.163.102:/home/branwr/fpga-
 alias ipadd='function _(){ echo "ip addr add 10.10.$1.1/24 dev br0" | xclip -selection clipboard ;}; _' #takes in a third octet for an ipv4 as arg. copies the ip adding command to clipboard
 alias keyad='function _(){ ssh-copy-id -i /home/branwr/.ssh/id_rsa.pub $1 ;}; _' #where $1 is the ip you are trying to make a key with
 alias lophp="tail -f /var/log/apache2/error.log"                           #tails the php error logs
-alias tunjon="ssh -L 2999:localhost:3000 branwr@192.168.163.102 -N"
-alias tunrad='function _(){ ssh -L 3000:localhost:80 root@10.10.$1.1 -N ;}; _'
+alias tunjon="ssh -L 2999:localhost:3000 branwr@192.168.163.102 -N"        #establishes an ssh tunnel to vmjon
+alias tunrad='function _(){ ssh -L 3000:localhost:80 root@10.10.$1.1 -N ;}; _' #given a 3rd octet, establishes an ssh tunnel to a radio
+alias webjon="deaw ; scp -r SecureDirectory/ SiteRoot/ vmjon:/home/branwr/websiterearchitechture/ && tojon" #copies website code to vmjon
 #-----------------------------------------CYOPIPE-----------------------------------------------
 alias cyo="cd /home/branwr/projects/CSR/CATCH/"                            #navigates to big CATCH
 alias catch="cd ~/projects/CSR/CATCH/catch"                                #navigates to small catch
@@ -72,10 +81,7 @@ alias ilog="cat logging/ILOG.txt"                                          #cats
 alias sstig="nvm use 21.6.2 && cd /home/branwr/projects/CSR/STIG/ && npm start" #starts the source built version of stig
 alias tunstig="ssh -L 3000:localhost:3000 branwr@catchdev1 -N"
 alias m2d='function _(){ pandoc -o $1.docx -f markdown -t docx $1.md ;}; _' #given a .docx file name BEFORE the .docx extension, converts it to markdown
+alias cyocap="sudo setcap cap_net_raw,cap_net_admin=eip ~/projects/CSR/CATCH/catch/catch-cli"
 
-function pmec() {                                                          #push mechanic: given a commit string, adds all, commits, and pushes
-        local input="$1"
-        git add . && git commit -m "$input" && git push 
-}
 
 #-----------------------------------------------------------------------------------------------
