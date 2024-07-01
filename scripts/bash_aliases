@@ -64,8 +64,9 @@ alias keyad='function _(){ ssh-copy-id -i /home/branwr/.ssh/id_rsa.pub $1 ;}; _'
 alias lophp="tail -f /var/log/apache2/error.log"                           #tails the php error logs
 alias tunjon="ssh -L 2999:localhost:3000 branwr@192.168.163.102 -N"        #establishes an ssh tunnel to vmjon
 alias tunrad='function _(){ ssh -L 3000:localhost:80 root@10.10.$1.1 -N ;}; _' #given a 3rd octet, establishes an ssh tunnel to a radio
-alias webjon="deaw ; scp -r SecureDirectory/ SiteRoot/ vmjon:/home/branwr/websiterearchitechture/ && tojon" #copies website code to vmjon
+alias webjon="deaw ; scp -r SecureDirectory/  vmjon:/home/branwr/websiterearchitechture/ && tojon" #copies website code to vmjon
 #-----------------------------------------CYOPIPE-----------------------------------------------
+alias stig="cd ~/projects/CSR/STIG/"					   #navigates to STIG
 alias cyo="cd /home/branwr/projects/CSR/CATCH/"                            #navigates to big CATCH
 alias catch="cd ~/projects/CSR/CATCH/catch"                                #navigates to small catch
 alias cgui="cd ~/projects/CSR/CATCH/cgui/"                                 #navigates to cgui
@@ -80,8 +81,8 @@ alias wlog="cat logging/WLOG.txt"                                          #cats
 alias ilog="cat logging/ILOG.txt"                                          #cats ilog
 alias sstig="nvm use 21.6.2 && cd /home/branwr/projects/CSR/STIG/ && npm start" #starts the source built version of stig
 alias tunstig="ssh -L 3000:localhost:3000 branwr@catchdev1 -N"
-alias m2d='function _(){ pandoc -o $1.docx -f markdown -t docx $1.md ;}; _' #given a .docx file name BEFORE the .docx extension, converts it to markdown
+alias todev="ssh branwr@catchdev1 -X"
 alias cyocap="sudo setcap cap_net_raw,cap_net_admin=eip ~/projects/CSR/CATCH/catch/catch-cli"
 
-
 #-----------------------------------------------------------------------------------------------
+alias m2d='function _(){ pandoc -o $1.docx -f markdown -t docx $1.md ;}; _' #given a .docx file name BEFORE the .docx extension, converts it to markdown
