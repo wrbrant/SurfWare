@@ -66,7 +66,10 @@ alias tunjon="ssh -L 2999:localhost:3000 branwr@192.168.163.102 -N"        #esta
 alias tunrad='function _(){ ssh -L 3000:localhost:80 root@10.10.$1.1 -N ;}; _' #given a 3rd octet, establishes an ssh tunnel to a radio
 alias webjon="deaw ; scp -r SecureDirectory/  vmjon:/home/branwr/websiterearchitechture/ && tojon" #copies website code to vmjon
 #-----------------------------------------CYOPIPE-----------------------------------------------
+alias csr="cd ~/projects/CSR/"                                             #navigates to CSR
 alias stig="cd ~/projects/CSR/STIG/"					   #navigates to STIG
+alias stigo="stig ; cd STIG-Old"					   #navigates to old version of stig
+alias stigr="stig ; cd STIG-React"                                         #navigates to react version of stig
 alias cyo="cd /home/branwr/projects/CSR/CATCH/"                            #navigates to big CATCH
 alias catch="cd ~/projects/CSR/CATCH/catch"                                #navigates to small catch
 alias cgui="cd ~/projects/CSR/CATCH/cgui/"                                 #navigates to cgui
