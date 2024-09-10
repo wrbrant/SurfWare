@@ -10,7 +10,8 @@ alias mvtool='function _(){ mv $1 /mnt/hgfs/shareVM ; }; _'                #take
 alias ttm="cd ~/projects/ttm/ ; poetry run python3 ttm.py"                 #opens the ttm timer
 alias mytop="watch -n .5 free -l -h"                                       #does a fancy process watch
 alias chownBrant="sudo -k ; sudo chown branwr:branwr . -R ; sudo -k "      #recursively changes the ownership of cwd to branwr:branwr 
-alias clip='function _(){ echo $1 | xclip -selection clipboard ; }; _'     #takes string as arg. copies string to clipboard
+alias catclip='function _(){ cat $1 | xclip -selection clipboard ; }; _' 
+alias echoclip='function _(){ echo $1 | xclip -selection clipboard ; }; _'     #takes string as arg. copies string to clipboard
 alias gdmr="sudo systemctl restart gdm3"                                   #restarts gnome; use when monitors need reset
 #----OPEN----
 alias cody="codium --ignore-certificate-errors"                            #opens codium without certificate errors
@@ -90,5 +91,6 @@ alias tunstig="ssh -L 3000:localhost:3000 branwr@catchdev1 -N"
 alias todev="ssh branwr@catchdev1 -X"
 alias cyocap="sudo setcap cap_net_raw,cap_net_admin=eip ~/projects/CSR/CATCH/catch/catch-cli"
 
+alias desc='function _(){ python3 ~/bin/getDesc.py $1 | xclip -selection clipboard ;}; _'
 #-----------------------------------------------------------------------------------------------
 alias m2d='function _(){ pandoc -o $1.docx -f markdown -t docx $1.md ;}; _' #given a .docx file name BEFORE the .docx extension, converts it to markdown
