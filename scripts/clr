@@ -2,7 +2,7 @@
 
 clear
 
-for (( i=1; i<=20; i++))
+for (( i=1; i<=18; i++))
 do
 	echo
 done
