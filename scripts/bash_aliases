@@ -89,6 +89,7 @@ alias ilog="cat logging/ILOG.txt"                                          #cats
 alias sstig="nvm use 21.6.2 && cd /home/branwr/projects/CSR/STIG/ && npm start" #starts the source built version of stig
 alias tunstig="ssh -L 3000:localhost:3000 branwr@catchdev1 -N"
 alias todev="ssh branwr@catchdev1 -X"
+alias cpdev='function _(){ scp "$1" branwr@catchdev1:/opt/catchdev1/CATCH/ ;}; _'
 alias cyocap="sudo setcap cap_net_raw,cap_net_admin=eip ~/projects/CSR/CATCH/catch/catch-cli"
 
 alias desc='function _(){ python3 ~/bin/getDesc.py $1 | xclip -selection clipboard ;}; _'
