@@ -12,6 +12,7 @@ alias mytop="watch -n .5 free -l -h"                                       #does
 alias chownBrant="sudo -k ; sudo chown branwr:branwr . -R ; sudo -k "      #recursively changes the ownership of cwd to branwr:branwr 
 alias catclip='function _(){ cat $1 | xclip -selection clipboard ; }; _' 
 alias echoclip='function _(){ echo $1 | xclip -selection clipboard ; }; _'     #takes string as arg. copies string to clipboard
+alias clip="xclip -selection clipboard"					   #can pipe a command to it to capture the output
 alias gdmr="sudo systemctl restart gdm3"                                   #restarts gnome; use when monitors need reset
 alias countCode="cloc ."                                                   #this alias for the simple cloc tool helps me remember that I can do this
 #----OPEN----
@@ -31,10 +32,11 @@ alias poi="cd ~/projects ; ls"                                             #navi
 alias surf="cd ~/projects/SURF/ ; ls"                                      #navigates to SURF directory and lists contents
 alias bin="cd ~/bin ; ls"                                                  #navigates to bin directory and lists contents
 alias notes="cd ~/Documents/Notes && git status"                           #navigates to projects directory and checks git status
-alias throtl="cd ~/projects/THROTL"                                        #navigates to the THROTL directory
-alias gthrotl="cd ~/projects/THROTL/video-sync-logs-poc/gothrotl/"         #navigates to the gothrotl directory
-alias rthrotl="cd ~/projects/THROTL/video-sync-logs-poc/reacthrotl"        #navigates to the reacthrotl directory
-alias smart="cd ~/projects/SMART"
+alias throtl="cd ~/projects/THROTL/throtl"                                 #navigates to the THROTL directory
+alias tgo="cd /home/branwr/projects/THROTL/throtl/throtl-server"           #navigates to the gothrotl directory
+alias tui="cd /home/branwr/projects/THROTL/throtl/throtl-ui"               #navigates to the reacthrotl directory
+alias smart="cd ~/projects/SMART"                                          #navigates to the SMART directory
+alias scripts="cd ~/projects/SMART/smart_scripts/scripts/"                 #navigates to the smart scripts inner directory
 #----DOCK----
 alias dock="sudo docker"                                                   #shorthand for 'sudo docker'
 alias fixdock="sudo systemctl restart docker"                              #restarts docker (useful when unpausing VMs)
@@ -82,6 +84,7 @@ alias stigr="stig ; cd STIG-React"                                         #navi
 alias cyo="cd /home/branwr/projects/CSR/CATCH/"                            #navigates to big CATCH
 alias catch="cd ~/projects/CSR/CATCH/catch"                                #navigates to small catch
 alias cgui="cd ~/projects/CSR/CATCH/cgui/"                                 #navigates to cgui
+alias config="cd ~/projects/CSR/CATCH/config"                              #navigates to config
 alias ecyo="catch && go build ."                                           #'e' stands for executable. navigates to catch and build exe
 alias scyo="cgui && go run . "					           #'s' stands for shell. navigates to to cgui and runs the shell gui
 alias pcyo="ecyo && scyo"                                                  #'p' stands for pipeline. runs ecyo and then scyo
@@ -92,13 +95,12 @@ alias dlog="cat logging/DLOG.txt"                                          #cats
 alias elog="cat logging/ELOG.txt"                                          #cats elog
 alias wlog="cat logging/WLOG.txt"                                          #cats wlog
 alias ilog="cat logging/ILOG.txt"                                          #cats ilog
-alias sstig="nvm use 21.6.2 && cd /home/branwr/projects/CSR/STIG/ && npm start" #starts the source built version of stig
+alias sstig="stig && rm node_modules -r && npm i && npm run dev -- --host" #starts the source built version of stig
 alias tunstig="ssh -L 3000:localhost:3000 branwr@catchdev1 -N"
 alias todev="ssh branwr@catchdev1 -X"
 alias cpdev='function _(){ scp "$1" branwr@catchdev1:/opt/catchdev1/CATCH/ ;}; _'
 alias cyocap="sudo setcap cap_net_raw,cap_net_admin=eip ~/projects/CSR/CATCH/catch/catch-cli"
 
-alias stigstart="stigr && rm node_modules -r && npm i && npm run dev -- --host"
 
 alias desc='function _(){ python3 ~/bin/getDesc.py $1 | xclip -selection clipboard ;}; _'
 #-----------------------------------------------------------------------------------------------
