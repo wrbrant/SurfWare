@@ -15,6 +15,8 @@ alias echoclip='function _(){ echo $1 | xclip -selection clipboard ; }; _'     #
 alias clip="xclip -selection clipboard"					   #can pipe a command to it to capture the output
 alias gdmr="sudo systemctl restart gdm3"                                   #restarts gnome; use when monitors need reset
 alias countCode="cloc ."                                                   #this alias for the simple cloc tool helps me remember that I can do this
+alias pwdclip='function _(){ echo "$(pwd)/$1" | xclip -selection clipboard ; }; _' #copies the current working directory plus an optional filepath to the clipboard
+alias toke="catclip ~/.inlgithubtoken"					   #copies the inl github token to the clipboard
 #----OPEN----
 alias cody="codium --ignore-certificate-errors"                            #opens codium without certificate errors
 alias goto='function _(){ code --goto "$1" ;}; _'                          #takes a file as arg. opens file in vs-code
@@ -36,6 +38,7 @@ alias throtl="cd ~/projects/THROTL/throtl"                                 #navi
 alias tgo="cd /home/branwr/projects/THROTL/throtl/throtl-server"           #navigates to the gothrotl directory
 alias tui="cd /home/branwr/projects/THROTL/throtl/throtl-ui"               #navigates to the reacthrotl directory
 alias smart="cd ~/projects/SMART"                                          #navigates to the SMART directory
+alias app="cd ~/projects/SMART/app"                                        #navigates to the SMART app directory
 alias scripts="cd ~/projects/SMART/smart_scripts/scripts/"                 #navigates to the smart scripts inner directory
 #----DOCK----
 alias dock="sudo docker"                                                   #shorthand for 'sudo docker'
@@ -103,5 +106,10 @@ alias cyocap="sudo setcap cap_net_raw,cap_net_admin=eip ~/projects/CSR/CATCH/cat
 
 
 alias desc='function _(){ python3 ~/bin/getDesc.py $1 | xclip -selection clipboard ;}; _'
-#-----------------------------------------------------------------------------------------------
+#-----------------------------------------SMART-------------------------------------------------
 alias m2d='function _(){ pandoc -o $1.docx -f markdown -t docx $1.md ;}; _' #given an md file name BEFORE the .md extension, converts it to docx
+
+alias airs="docker exec -it -u root app-airflow-scheduler-1 bash"
+alias rmvol='function _(){ dock volume rm $1 ;}; _'
+alias invol='function _(){ dock volume inspect $1 ;}; _'
+alias cleansmart="app && toke && npm run dev:clean"
