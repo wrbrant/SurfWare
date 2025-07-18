@@ -39,7 +39,7 @@ var (
 	unused             bool
 	add                bool
 	edit               bool
-	help               bool
+	help               []string
 	helpMeCmds         []string
 	addMeCmds          []string
 	editMeCmds         []string
@@ -66,7 +66,7 @@ func main() {
 		fmt.Println(helpString)
 		os.Exit(0)
 	}
-	for _, arg := range args {
+	for i, arg := range args {
 		switch arg {
 		case "-A", "--all":
 			all = true
@@ -77,12 +77,13 @@ func main() {
 		case "-u", "--unused":
 			unused = true
 		case "-h", "--help":
-			help = true
+			help = append(help, args[i-1])
 		case "add":
 			add = true
 		case "edit":
 			edit = true
 		default:
+			//fairly sure this logic is screwed up
 			if add {
 				addMeCmds = append(addMeCmds, arg)
 				add = false
@@ -94,12 +95,20 @@ func main() {
 			}
 		}
 	}
+	customLoad()
+	if len(help) > 0 {
+		for _, needHelp := range help {
+			if _, ok := allAliases[needHelp]; !ok {
+				fmt.Println(needHelp + ": command not found")
+			} else {
+				fmt.Printf("%s: %s\n", needHelp, allAliases[needHelp].help)
+			}
+		}
+	}
 	if len(addMeCmds) > 0 {
-		customLoad()
 		customAdd()
 		return
 	} else if len(editMeCmds) > 0 {
-		customLoad()
 		customEdit()
 		return
 	}
@@ -118,9 +127,11 @@ func main() {
 		return
 	}
 
-	fmt.Println("Commands Available:")
-	for _, c := range commands {
-		fmt.Println("  * " + c)
+	if len(commands) > 0 {
+		fmt.Println("Commands Available:")
+		for _, c := range commands {
+			fmt.Println("  * " + c)
+		}
 	}
 }
 
@@ -132,14 +143,14 @@ func customLoad() {
 	var err error
 	buff, err := os.ReadFile(fpath_bash_aliases)
 	chk(err)
-	preg := regexp.MustCompile(`(?:#----(\w+)----|alias\s*(\w+)=((?:".*"|'.*')\s*)#(.*)|function\s*(\w*)\(\)\s*({[\s\w\W\n]*}))`)
+	preg := regexp.MustCompile(`(?:#----(\w+)----|alias\s*(\w*)=((?:".*"|'.*')\s*)#(.*)\n|function\s*([\w\W]+)\(\){\s*#(.+)\n([.\n\s\w\W]+}\s*\n))`)
 	matches := preg.FindAllStringSubmatch(string(buff), -1)
 	cat := ""
 	for _, match := range matches {
 		if match[1] != "" {
 			cat = match[1]
 		} else if match[5] != "" {
-			allAliases[match[5]] = custom{typeOf: "function", command: match[7], category: cat, help: match[6]}
+			allAliases[match[5]] = custom{typeOf: "function", command: match[5], category: cat, help: match[6]}
 		} else {
 			allAliases[match[2]] = custom{typeOf: "alias", command: match[3], category: cat, help: match[4]}
 		}
