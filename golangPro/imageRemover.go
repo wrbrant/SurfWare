@@ -35,7 +35,7 @@ func listImgs() {
 			rmImages = append(rmImages, match[0][1])
 		}
 	}
-	fmt.Printf("Would you like to remove the following images [Y/n]:\n%s\n", strings.Join(rmImages[1:], "\n"))
+	fmt.Printf("The following docker images are on this machine:\n%s\nWould you like to remove all images [Y/n]", strings.Join(rmImages[1:], "\n"))
 	reader := bufio.NewReader(os.Stdin)
 	input, _ := reader.ReadString('\n')
 	if input != strings.ToLower("y\n") {
