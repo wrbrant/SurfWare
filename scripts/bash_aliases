@@ -37,7 +37,7 @@ alias bin="cd ~/bin ; ls"                                                  #navi
 alias notes="cd ~/Documents/Notes && git status"                           #navigates to projects directory and checks git status
 #----DOCK----
 alias dock="sudo docker"                                                   #shorthand for 'sudo docker'
-alias fixdock="systemctl restart docker"                                   #restarts docker (useful when unpausing VMs)
+alias fixdock="sudo systemctl restart docker"                              #restarts docker (useful when unpausing VMs)
 alias rmvol='function _(){ docker volume rm $1 ;}; _'                      #shorthand to remove a specified volume
 alias invol='function _(){ docker volume inspect $1 ;}; _'                 #shorthand to inspect a specified volume
 #----FORM----
