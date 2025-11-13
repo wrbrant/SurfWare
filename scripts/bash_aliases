@@ -2,8 +2,6 @@
 #-----------------------------------------UTILITY------------------------------------------------
 #----SHVM----
 alias remount="sudo /usr/bin/vmhgfs-fuse .host:/ /mnt/hgfs -o subtype=vmhgfs-fuse,allow_other" #remounts the shared folder
-alias share="cd /mnt/hgfs/shareVM ; ls"                                    #navigates to the shared folder and lists the contents
-alias shls="ls /mnt/hgfs/shareVM"                                          #lists the contents of the shared directory
 alias cptool='function _(){ cp $1 /mnt/hgfs/shareVM ; }; _'                #takes a file as arg. copies file from shared folder to current directory
 alias mvtool='function _(){ mv $1 /mnt/hgfs/shareVM ; }; _'                #takes a file as arg. moves file from shared folder to current directory
 #----TOOL----
@@ -16,12 +14,9 @@ alias clip="xclip -selection clipboard"					   #can pipe a command to it to capt
 alias gdmr="sudo systemctl restart gdm3"                                   #restarts gnome; use when monitors need reset
 alias countCode="cloc ."                                                   #this alias for the simple cloc tool helps me remember that I can do this
 alias pwdclip='function _(){ echo "$(pwd)/$1" | xclip -selection clipboard ; }; _' #copies the current working directory plus an optional filepath to the clipboard
-alias toke="catclip ~/.inlgithubtoken"					   #copies the inl github token to the clipboard
+alias toke="catclip ~/.token"					   #copies the inl github token to the clipboard
 #----OPEN----
-alias cody="codium --ignore-certificate-errors"                            #opens codium without certificate errors
 alias goto='function _(){ code --goto "$1" ;}; _'                          #takes a file as arg. opens file in vs-code
-alias notev="cd ~/Documents/Notes ; codium --ignore-certificate-errors ."  #opens Notes directory in codium
-alias noteb="cd ~/Documents/Notes ; obsidian . "                           #opens Notes directory in obsidian
 alias xopen='function _(){ xdg-open $1 ;}; _'                              #calls xdg-open on a file
 #----BASH----
 alias bopen="nano ~/.bashrc"                                               #opens bashrc in nano
@@ -39,7 +34,6 @@ alias notes="cd ~/Documents/Notes && git status"                           #navi
 alias dock="sudo docker"                                                   #shorthand for 'sudo docker'
 alias fixdock="sudo systemctl restart docker"                              #restarts docker (useful when unpausing VMs)
 alias rmvol='function _(){ docker volume rm $1 ;}; _'                      #shorthand to remove a specified volume
-alias invol='function _(){ docker volume inspect $1 ;}; _'                 #shorthand to inspect a specified volume
 #----FORM----
 alias lah="ls -lah"                                                        #shorthand for 'ls -lah'      
 alias duh="du -hd 1"                                                       #shorthand for 'du -hd 1'       
@@ -58,16 +52,15 @@ function pmec() {                                                          #push
         local input="$1"
         git add . && git commit -m "$input" && git push 
 }
-#-----------------------------------------D520--------------------------------------------------
-alias d52="cd ~/projects/D52/"                                             #naviagates to the D52 directory
-alias phen="cd ~/projects/D52/phenom"                                      #navigates to the phenom directory
+#-----------------------------------------YARD--------------------------------------------------
+alias yard="cd /home/branwr/projects/YARD/yardChecks"				  #navigates to the yardChecks directory
+alias weby="cd /home/branwr/projects/YARD/yardChecks/webYard"			  #navigates to the webYard directory
+alias appy="cd /home/branwr/projects/YARD/yardChecks/apiYard"			  #navigates to the apiYard directory
+alias appyb="appy && go build -o yardcheck . && sudo setcap 'cap_net_bind_service=+ep' yardcheck && ./yardcheck" #navigates to the app build directory, builds, and sets port permissions
+alias webyb="weby && npx expo export --platform web"                                  #navigates to the webYard directory and builds the dist folder
+alias dtrb="/home/branwr/projects/YARD/create_data/deep-text-recognition-benchmark/dtrb" #navigates to the dtrb directory
 #-----------------------------------------DEA---------------------------------------------------
-alias dea="cd /home/branwr/projects/DEA/"                                  #navigates to DEA dir
-alias deaf="cd /home/branwr/projects/DEA/fpga-mu"                          #navigates to fpga-mu dir
-alias deam="cd /home/branwr/projects/DEA/m220_sw/Target/source/sdk-linux"  #navigates to sdk-linux dir
-alias deaw="cd /home/branwr/projects/DEA/web_m220"                         #navigates to web_m220 dir
 alias totow="tower ; ssh sil-605005@192.168.163.60 -X"                     #gets password and ssh's into tower
-alias tojon="tower ; ssh branwr@192.168.163.102 -X"                        #gets password and ssh's into john's vm
 alias cpjon="tower ; deaf ; scp -r ./* branwr@192.168.163.102:/home/branwr/fpga-mu/ && tojon"     #copies the fpgamu directory to jons vm
 
 alias ipadd='function _(){ echo "ip addr add 10.10.$1.1/24 dev br0" | xclip -selection clipboard ;}; _' #takes in a third octet for an ipv4 as arg. copies the ip adding command to clipboard
@@ -77,45 +70,27 @@ alias tunjon="ssh -L 2999:localhost:3000 branwr@192.168.163.102 -N"        #esta
 alias tunrad='function _(){ ssh -L 3000:localhost:80 root@10.10.$1.1 -N ;}; _' #given a 3rd octet, establishes an ssh tunnel to a radio
 alias webjon="deaw ; scp -r SecureDirectory/  vmjon:/home/branwr/websiterearchitechture/ && tojon" #copies website code to vmjon
 #-----------------------------------------CYOPIPE-----------------------------------------------
-alias csr="cd ~/projects/CSR/"                                             #navigates to CSR
-alias stig="cd ~/projects/CSR/STIG/"					   #navigates to STIG
-alias stigo="stig ; cd STIG-Old"					   #navigates to old version of stig
-alias stigr="stig ; cd STIG-React"                                         #navigates to react version of stig
-alias cyo="cd /home/branwr/projects/CSR/CATCH/"                            #navigates to big CATCH
-alias catch="cd ~/projects/CSR/CATCH/catch"                                #navigates to small catch
-alias cgui="cd ~/projects/CSR/CATCH/cgui/"                                 #navigates to cgui
-alias config="cd ~/projects/CSR/CATCH/config"                              #navigates to config
-alias ecyo="catch && go build ."                                           #'e' stands for executable. navigates to catch and build exe
-alias scyo="cgui && go run . "					           #'s' stands for shell. navigates to to cgui and runs the shell gui
-alias pcyo="ecyo && scyo"                                                  #'p' stands for pipeline. runs ecyo and then scyo
+alias stig="cd ~/projects/STIG/"					   #navigates to STIG
 alias ccyo="cd /home/branwr/projects/CSR/CATCH/catch && go run . collection" #'c' stands for collection. navigates to catch and runs collection
-alias acyo="catch && go run . analysis"                                    #'a' stands for analysis. navigates to catch and runs analysis
-alias docyo="docker start neo4j stig"                                      #starts neo4j and stig for cyo
 alias dlog="cat logging/DLOG.txt"                                          #cats dlog
 alias elog="cat logging/ELOG.txt"                                          #cats elog
 alias wlog="cat logging/WLOG.txt"                                          #cats wlog
 alias ilog="cat logging/ILOG.txt"                                          #cats ilog
-alias sstig="stig && rm node_modules -r && npm i && npm run dev -- --host" #starts the source built version of stig
 alias tunstig="ssh -L 3000:localhost:3000 branwr@catchdev1 -N"             #
-alias todev="ssh branwr@catchdev1 -X"                                      #
-alias cpdev='function _(){ scp "$1" branwr@catchdev1:/opt/catchdev1/CATCH/ ;}; _' #copies a file to /opt/catchdev1/CATCH/ on catchdev1
 alias cyocap="sudo setcap cap_net_raw,cap_net_admin=eip ~/projects/CSR/CATCH/catch/catch-cli" # sets the pcap permission on the catch executable
 
 
 alias desc='function _(){ python3 ~/bin/getDesc.py $1 | xclip -selection clipboard ;}; _' #calls the getDesc.py script and copies results to clipboard
 #-----------------------------------------SMART-------------------------------------------------
-alias smart="cd ~/projects/SMART"                                          #navigates to the SMART directory
-alias app="cd ~/projects/SMART/app"                                        #navigates to the SMART app directory
-alias scripts="cd ~/projects/SMART/smart_scripts/scripts/"                 #navigates to the smart scripts inner directory
-
 alias m2d='function _(){ pandoc -o $1.docx -f markdown -t docx $1.md ;}; _' #given an md file name BEFORE the .md extension, converts it to docx
 
 alias airs="docker exec -it -u root app-airflow-scheduler-1 bash"          #opens the airflow scheduler container
 alias cleansmart="app && toke && npm run dev:clean"                        #clean starts the smart app
 alias smartstart="app && npx -y mkdirp api/secrets && npm run check:mongo && npm run check:postgres && npm run check:fastify && npm run gittoken && docker compose --env-file=.env.dev up --watch --no-attach airflow-webserver"
-
 #-----------------------------------------THROTL------------------------------------------------
-alias throtl="cd ~/projects/THROTL/throtl"                                 #navigates to the THROTL directory
-alias tgo="cd /home/branwr/projects/THROTL/throtl/throtl-server"           #navigates to the gothrotl directory
-alias tui="cd /home/branwr/projects/THROTL/throtl/throtl-ui"               #navigates to the reacthrotl directory
 alias throtlstart="throtl && docker compose up --watch --no-attach opensearch --no-attach opensearch-dashboards --no-attach jupyter" #starts throtl docker containers, not attaching to output of opensearch and jupyter
+
+alias bont='function _(){ cat /home/branwr/projects/YARD/create_data/synth_data/labels.txt | grep $1.png ;}; _' #temporary. test bad fonts
+
+alias testocr="cd /home/branwr/projects/YARD/yardChecks/apiYard/python_ocr/ && python3 easyocr_service.py /home/branwr/projects/YARD/create_data/deep-text-recognition-benchmark/synth_data/4567591.png
+"
