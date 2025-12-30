@@ -60,6 +60,8 @@ alias appyb="appy && go build -o yardcheck . && sudo setcap 'cap_net_bind_servic
 alias webyb="weby && npx expo export --platform web"                                  #navigates to the webYard directory and builds the dist folder
 alias dtrb="/home/branwr/projects/YARD/create_data/deep-text-recognition-benchmark/dtrb" #navigates to the dtrb directory
 alias toyard="ssh yardcheck@yardcheck"                                            #ssh's to the yardcheck server
+alias testocr="cd /home/branwr/projects/YARD/yardChecks/apiYard/python_ocr/ && python3 easyocr_service.py /home/branwr/projects/YARD/create_data/deep-text-recognition-benchmark/synth_data/4567591.png" #run a test on the ocr
+alias bont='function _(){ cat /home/branwr/projects/YARD/create_data/synth_data/labels.txt | grep $1.png ;}; _' #temporary. test bad fonts
 #-----------------------------------------LAND---------------------------------------------------
 alias land="cd ~/projects/LAND/"                                           #navigates to the LAND directory
 alias landing="cd ~/projects/LAND/landing/"                                #navigates to the landing directory
@@ -96,8 +98,3 @@ alias cleansmart="app && toke && npm run dev:clean"                        #clea
 alias smartstart="app && npx -y mkdirp api/secrets && npm run check:mongo && npm run check:postgres && npm run check:fastify && npm run gittoken && docker compose --env-file=.env.dev up --watch --no-attach airflow-webserver"
 #-----------------------------------------THROTL------------------------------------------------
 alias throtlstart="throtl && docker compose up --watch --no-attach opensearch --no-attach opensearch-dashboards --no-attach jupyter" #starts throtl docker containers, not attaching to output of opensearch and jupyter
-
-alias bont='function _(){ cat /home/branwr/projects/YARD/create_data/synth_data/labels.txt | grep $1.png ;}; _' #temporary. test bad fonts
-
-alias testocr="cd /home/branwr/projects/YARD/yardChecks/apiYard/python_ocr/ && python3 easyocr_service.py /home/branwr/projects/YARD/create_data/deep-text-recognition-benchmark/synth_data/4567591.png
-"
