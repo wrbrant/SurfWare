@@ -59,11 +59,13 @@ alias appy="cd /home/branwr/projects/YARD/yardChecks/apiYard"			  #navigates to 
 alias appyb="appy && go build -o yardcheck . && sudo setcap 'cap_net_bind_service=+ep' yardcheck && ./yardcheck" #navigates to the app build directory, builds, and sets port permissions
 alias webyb="weby && npx expo export --platform web"                                  #navigates to the webYard directory and builds the dist folder
 alias dtrb="/home/branwr/projects/YARD/create_data/deep-text-recognition-benchmark/dtrb" #navigates to the dtrb directory
+alias toyard="ssh yardcheck@yardcheck"                                            #ssh's to the yardcheck server
 #-----------------------------------------LAND---------------------------------------------------
 alias land="cd ~/projects/LAND/"                                           #navigates to the LAND directory
 alias landing="cd ~/projects/LAND/landing/"                                #navigates to the landing directory
 alias appl="landing && cd apiLand"					   #navigates to the apiLand directory
 alias webl="landing && cd webLand"					   #navigates to the webLand directory
+alias tohome="ssh home@home"                                               #ssh's to the home server
 #-----------------------------------------DEA---------------------------------------------------
 alias totow="tower ; ssh sil-605005@192.168.163.60 -X"                     #gets password and ssh's into tower
 alias cpjon="tower ; deaf ; scp -r ./* branwr@192.168.163.102:/home/branwr/fpga-mu/ && tojon"     #copies the fpgamu directory to jons vm

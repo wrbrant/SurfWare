@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+HOSTS=("yardcheck@yardcheck" "gitlab@gitlab" "home@home")
+REMOTE_CMDS='apt update && apt upgrade -y && snap refresh'
+
+read -rsp "Enter sudo password for remote hosts: " SUDOPASS
+echo
+
+for h in "${HOSTS[@]}"; do
+  echo -e "\n===== Updating $h ====="
+  # We pipe the password into ssh so remote sudo can read it from stdin (-S).
+  # -p '' disables the sudo password prompt text so the prompt doesn't consume stdin.
+  if printf '%s\n' "$SUDOPASS" | ssh -o ConnectTimeout=10 "$h" "sudo -S -p '' bash -lc '$REMOTE_CMDS'"; then
+    echo "$h update complete"
+  else
+    echo "ERROR: update failed on $h" >&2
+  fi
+done
