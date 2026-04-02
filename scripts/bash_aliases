@@ -1,5 +1,5 @@
-#-----------------------------------------ALIASES------------------------------------------------
-#-----------------------------------------UTILITY------------------------------------------------
+#===========================================ALIASES================================================
+#===========================================UTILITY================================================
 #----SHVM----
 alias remount="sudo /usr/bin/vmhgfs-fuse .host:/ /mnt/hgfs -o subtype=vmhgfs-fuse,allow_other" #remounts the shared folder
 alias cptool='function _(){ cp $1 /mnt/hgfs/shareVM ; }; _'                #takes a file as arg. copies file from shared folder to current directory
@@ -52,7 +52,7 @@ function pmec() {                                                          #push
         local input="$1"
         git add . && git commit -m "$input" && git push 
 }
-#-----------------------------------------YARD--------------------------------------------------
+#-------------------------------------------YARD---------------------------------------------------
 alias yard="cd /home/branwr/projects/YARD/yardChecks"				  #navigates to the yardChecks directory
 alias weby="cd /home/branwr/projects/YARD/yardChecks/webYard"			  #navigates to the webYard directory
 alias appy="cd /home/branwr/projects/YARD/yardChecks/apiYard"			  #navigates to the apiYard directory
@@ -62,13 +62,19 @@ alias dtrb="/home/branwr/projects/YARD/create_data/deep-text-recognition-benchma
 alias toyard="ssh yardcheck@yardcheck"                                            #ssh's to the yardcheck server
 alias testocr="cd /home/branwr/projects/YARD/yardChecks/apiYard/python_ocr/ && python3 easyocr_service.py /home/branwr/projects/YARD/create_data/deep-text-recognition-benchmark/synth_data/4567591.png" #run a test on the ocr
 alias bont='function _(){ cat /home/branwr/projects/YARD/create_data/synth_data/labels.txt | grep $1.png ;}; _' #temporary. test bad fonts
-#-----------------------------------------LAND---------------------------------------------------
+#-------------------------------------------LAND---------------------------------------------------
 alias land="cd ~/projects/LAND/"                                           #navigates to the LAND directory
 alias landing="cd ~/projects/LAND/landing/"                                #navigates to the landing directory
 alias appl="landing && cd apiLand"					   #navigates to the apiLand directory
 alias webl="landing && cd webLand"					   #navigates to the webLand directory
 alias tohome="ssh home@home"                                               #ssh's to the home server
-#-----------------------------------------DEA---------------------------------------------------
+#-------------------------------------------APBILL-------------------------------------------------
+alias apbill="cd ~/projects/APBILL/"					   #navigates to the auto APBILL directory
+alias apsign="cd ~/projects/APBILL/auto-ap-signing/"                       #navigates to the auto ap signing directory
+alias webas="apsign && cd webSign"					   #navigates to the auto ap web directory
+alias appas="apsign && cd apiSign"					   #navigates to the auto ap api directory
+alias appasb="appas && go build -o apsigner . && sudo setcap 'cap_net_bind_service=+ep' apsigner && ./apsigner" #navigates to the app build directory, builds, and sets port permissions
+#-------------------------------------------DEA----------------------------------------------------
 alias totow="tower ; ssh sil-605005@192.168.163.60 -X"                     #gets password and ssh's into tower
 alias cpjon="tower ; deaf ; scp -r ./* branwr@192.168.163.102:/home/branwr/fpga-mu/ && tojon"     #copies the fpgamu directory to jons vm
 
@@ -78,7 +84,7 @@ alias lophp="tail -f /var/log/apache2/error.log"                           #tail
 alias tunjon="ssh -L 2999:localhost:3000 branwr@192.168.163.102 -N"        #establishes an ssh tunnel to vmjon
 alias tunrad='function _(){ ssh -L 3000:localhost:80 root@10.10.$1.1 -N ;}; _' #given a 3rd octet, establishes an ssh tunnel to a radio
 alias webjon="deaw ; scp -r SecureDirectory/  vmjon:/home/branwr/websiterearchitechture/ && tojon" #copies website code to vmjon
-#-----------------------------------------CYOPIPE-----------------------------------------------
+#-------------------------------------------CYOPIPE------------------------------------------------
 alias stig="cd ~/projects/STIG/"					   #navigates to STIG
 alias ccyo="cd /home/branwr/projects/CSR/CATCH/catch && go run . collection" #'c' stands for collection. navigates to catch and runs collection
 alias dlog="cat logging/DLOG.txt"                                          #cats dlog
@@ -90,11 +96,16 @@ alias cyocap="sudo setcap cap_net_raw,cap_net_admin=eip ~/projects/CSR/CATCH/cat
 
 
 alias desc='function _(){ python3 ~/bin/getDesc.py $1 | xclip -selection clipboard ;}; _' #calls the getDesc.py script and copies results to clipboard
-#-----------------------------------------SMART-------------------------------------------------
+#-------------------------------------------SMART--------------------------------------------------
 alias m2d='function _(){ pandoc -o $1.docx -f markdown -t docx $1.md ;}; _' #given an md file name BEFORE the .md extension, converts it to docx
 
 alias airs="docker exec -it -u root app-airflow-scheduler-1 bash"          #opens the airflow scheduler container
 alias cleansmart="app && toke && npm run dev:clean"                        #clean starts the smart app
-alias smartstart="app && npx -y mkdirp api/secrets && npm run check:mongo && npm run check:postgres && npm run check:fastify && npm run gittoken && docker compose --env-file=.env.dev up --watch --no-attach airflow-webserver"
-#-----------------------------------------THROTL------------------------------------------------
+alias smartstart="app && npx -y mkdirp api/secrets && npm run check:mongo && npm run check:postgres && npm run check:fastify && npm run gittoken && docker compose --env-file=.env.dev up --watch --no-attach airflow-webserver" #did a lot of cool stuff
+#-------------------------------------------THROTL-------------------------------------------------
 alias throtlstart="throtl && docker compose up --watch --no-attach opensearch --no-attach opensearch-dashboards --no-attach jupyter" #starts throtl docker containers, not attaching to output of opensearch and jupyter
+
+alias adcat="cd ~/projects/ADCATALOG/ADCatalog/"	#navigates to the ad catalog directory
+alias apdc="adcat && cd apiAdc"	#navigates to the apiAdc directory
+alias wadc="adcat && cd webAdc"	#navigates to the webAdc directory
+

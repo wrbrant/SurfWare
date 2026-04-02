@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
 	"io/ioutil"
 	"os"
@@ -86,16 +87,15 @@ func main() {
 			//fairly sure this logic is screwed up
 			if add {
 				addMeCmds = append(addMeCmds, arg)
-				add = false
 			} else if edit {
 				editMeCmds = append(editMeCmds, arg)
-				edit = false
 			} else {
 				helpMeCmds = append(helpMeCmds, arg)
 			}
 		}
 	}
 	customLoad()
+	fmt.Println(allAliases["adcat"].category)
 	if len(help) > 0 {
 		for _, needHelp := range help {
 			if _, ok := allAliases[needHelp]; !ok {
@@ -105,10 +105,11 @@ func main() {
 			}
 		}
 	}
-	if len(addMeCmds) > 0 {
-		customAdd()
+	if add {
+		customAdd(addMeCmds...)
 		return
-	} else if len(editMeCmds) > 0 {
+	}
+	if len(editMeCmds) > 0 {
 		customEdit()
 		return
 	}
@@ -143,7 +144,7 @@ func customLoad() {
 	var err error
 	buff, err := os.ReadFile(fpath_bash_aliases)
 	chk(err)
-	preg := regexp.MustCompile(`(?:#----(\w+)----|alias\s*(\w*)=((?:".*"|'.*')\s*)#(.*)\n|function\s*([\w\W]+)\(\){\s*#(.+)\n([.\n\s\w\W]+}\s*\n))`)
+	preg := regexp.MustCompile(`(?:#-----*(\w+)-----*|alias\s*(\w*)=((?:".*"|'.*')\s*)#(.*)\n|function\s*([\w\W]+)\(\){\s*#(.+)\n([.\n\s\w\W]+}\s*\n))`)
 	matches := preg.FindAllStringSubmatch(string(buff), -1)
 	cat := ""
 	for _, match := range matches {
@@ -157,8 +158,52 @@ func customLoad() {
 	}
 }
 
-func customAdd() {
+func customAdd(cs ...string) {
+	input := bufio.NewScanner(os.Stdin)
+	readLine := func() string {
+		if !input.Scan() {
+			if err := input.Err(); err != nil {
+				chk(err)
+			}
+			return ""
+		}
+		return strings.TrimSpace(input.Text())
+	}
 
+	if len(cs) == 0 {
+		fmt.Println("Please specify a command to add")
+		commandName := readLine()
+		if commandName == "" {
+			fmt.Println("No command specified, exiting")
+			os.Exit(0)
+		}
+		cs = append(cs, commandName)
+	}
+	newAliases := make(map[string]custom)
+	for _, c := range cs {
+		if _, ok := allAliases[c]; ok {
+			fmt.Printf("%s already exists, skipping\n", c)
+		} else {
+			fmt.Printf("Please enter the command for %s:\n", c)
+			command := readLine()
+			fmt.Printf("Please enter a help string for %s (optional):\n", c)
+			help := readLine()
+			fmt.Printf("Please enter a category for %s (optional):\n", c)
+			category := readLine()
+			newAliases[c] = custom{typeOf: "alias", command: command, category: category, help: help}
+		}
+	}
+	fp, err := os.OpenFile(fpath_bash_aliases, os.O_APPEND|os.O_WRONLY, 0664)
+	chk(err)
+	defer fp.Close()
+	for alias, details := range newAliases {
+		if _, ok := allAliases[alias]; !ok {
+			//TODO: add category support by writing the alias underneath the proper category header, and if the category doesn't exist, add a new header for it
+			_, err := fmt.Fprintf(fp, "\nalias %s=\"%s\"\t#%s\n", alias, details.command, details.help)
+			chk(err)
+			fmt.Printf("%s added successfully\n", alias)
+		}
+	}
 }
 func customEdit() {
 
