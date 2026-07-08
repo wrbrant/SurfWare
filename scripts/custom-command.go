@@ -95,7 +95,6 @@ func main() {
 		}
 	}
 	customLoad()
-	fmt.Println(allAliases["adcat"].category)
 	if len(help) > 0 {
 		for _, needHelp := range help {
 			if _, ok := allAliases[needHelp]; !ok {
