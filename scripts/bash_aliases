@@ -2,119 +2,39 @@
 #===========================================UTILITY================================================
 #----SHVM----
 alias remount="sudo /usr/bin/vmhgfs-fuse .host:/ /mnt/hgfs -o subtype=vmhgfs-fuse,allow_other" #remounts the shared folder
-alias cptool='function _(){ cp $1 /mnt/brantw ; }; _'                #takes a file as arg. copies file from shared folder to current directory
-alias mvtool='function _(){ mv $1 /mnt/brantw ; }; _'                #takes a file as arg. moves file from shared folder to current directory
+alias cptool='function _(){ cp $1 /mnt/brantw ; }; _'                	    #takes a file as arg. copies file from shared folder to current directory
+alias mvtool='function _(){ mv $1 /mnt/brantw ; }; _'                	    #takes a file as arg. moves file from shared folder to current directory
 #----TOOL----
-alias ttm="cd ~/projects/SURF/ttm/pyTTM/ ; poetry run python3 ttm.py"                 #opens the ttm timer
-alias mytop="watch -n .5 free -l -h"                                       #does a fancy process watch
-alias chownBrant="sudo -k ; sudo chown branwr:branwr . -R ; sudo -k "      #recursively changes the ownership of cwd to branwr:branwr 
-alias catclip='function _(){ cat $1 | xclip -selection clipboard ; }; _'   #copies the contents of a file to the clipboard
-alias echoclip='function _(){ echo $1 | xclip -selection clipboard ; }; _' #takes string as arg. copies string to clipboard
-alias clip="xclip -selection clipboard"					   #can pipe a command to it to capture the output
-alias gdmr="sudo systemctl restart gdm3"                                   #restarts gnome; use when monitors need reset
-alias countCode="cloc ."                                                   #this alias for the simple cloc tool helps me remember that I can do this
+alias ttm="cd ~/projects/SURF/ttm/pyTTM/ ; poetry run python3 ttm.py"       #opens the ttm timer
+alias mytop="watch -n .5 free -l -h"                                        #does a fancy process watch
+alias chownBrant="sudo -k ; sudo chown branwr:branwr . -R ; sudo -k "       #recursively changes the ownership of cwd to branwr:branwr 
+alias catclip='function _(){ cat $1 | xclip -selection clipboard ; }; _'    #copies the contents of a file to the clipboard
+alias echoclip='function _(){ echo $1 | xclip -selection clipboard ; }; _'  #takes string as arg. copies string to clipboard
+alias clip="xclip -selection clipboard"					   				    #can pipe a command to it to capture the output
+alias gdmr="sudo systemctl restart gdm3"                                    #restarts gnome; use when monitors need reset
+alias countCode="cloc ."                                                    #this alias for the simple cloc tool helps me remember that I can do this
 alias pwdclip='function _(){ echo "$(pwd)/$1" | xclip -selection clipboard ; }; _' #copies the current working directory plus an optional filepath to the clipboard
-alias toke="catclip ~/.token"					   #copies the inl github token to the clipboard
+alias toke="catclip ~/.token"					   						    #copies the inl github token to the clipboard
 #----OPEN----
-alias goto='function _(){ code --goto "$1" ;}; _'                          #takes a file as arg. opens file in vs-code
-alias xopen='function _(){ xdg-open $1 ;}; _'                              #calls xdg-open on a file
+alias goto='function _(){ code --goto "$1" ;}; _'                           #takes a file as arg. opens file in vs-code
+alias xopen='function _(){ xdg-open $1 ;}; _'                               #calls xdg-open on a file
 #----BASH----
-alias bopen="nano ~/.bashrc"                                               #opens bashrc in nano
-alias rope="source ~/.bashrc"                                              #source bashrc
-alias hosts="sudo nano /etc/hosts"                                         #opens the /etc/hosts file in nano
-alias aopen="nano ~/.bash_aliases"                                         #opens .bash_aliases in nano
+alias bopen="nano ~/.bashrc"                                                #opens bashrc in nano
+alias rope="source ~/.bashrc"                                               #source bashrc
+alias hosts="sudo nano /etc/hosts"                                          #opens the /etc/hosts file in nano
+alias aopen="nano ~/.bash_aliases"                                          #opens .bash_aliases in nano
 #----NAVI----
-alias docs="cd ~/Documents ; ls"                                           #navigates to Documents directory and lists contents
-alias down="cd ~/Downloads ; ls"                                           #navigates to Downloads directory and lists contents
-alias poi="cd ~/projects ; ls"                                             #navigates to projects directory and lists contents
-alias surf="cd ~/projects/SURF/ ; ls"                                      #navigates to SURF directory and lists contents
-alias bin="cd ~/bin ; ls"                                                  #navigates to bin directory and lists contents
-alias adcat="cd ~/projects/ADCATALOG/ADCatalog/"			   #navigates to the ad catalog directory
-alias apdc="adcat && cd apiAdc"						   #navigates to the apiAdc directory
-alias wadc="adcat && cd webAdc"						   #navigates to the webAdc directory
-alias toalcyone="ssh administrator@alcyone"				   #ssh's to alcyone.roadmastergroup.com
-#----DOCK----
-alias dock="sudo docker"                                                   #shorthand for 'sudo docker'
-alias fixdock="sudo systemctl restart docker"                              #restarts docker (useful when unpausing VMs)
-alias rmvol='function _(){ docker volume rm $1 ;}; _'                      #shorthand to remove a specified volume
-#----FORM----
-alias lah="ls -lah"                                                        #shorthand for 'ls -lah'      
-alias duh="du -hd 1"                                                       #shorthand for 'du -hd 1'       
-alias tree1="tree . -L 1"                                                  #prints a 1 level deep tree in cwd               
-alias tree2="tree . -L 2"                                                  #prints a 2 level deep tree in cwd                       
-alias treen='function _(){ tree -L $1 ;}; _'                               #takes an int arg. prints an n level deep tree in cwd       
+alias docs="cd ~/Documents ; ls"                                            #navigates to Documents directory and lists contents
+alias down="cd ~/Downloads ; ls"                                            #navigates to Downloads directory and lists contents
+alias poi="cd ~/projects ; ls"                                              #navigates to projects directory and lists contents
+alias surf="cd ~/projects/SURF/ ; ls"                                       #navigates to SURF directory and lists contents
+alias bin="cd ~/bin ; ls"                                                   #navigates to bin directory and lists contents
+alias adcat="cd ~/projects/ADCATALOG/ADCatalog/"			   			    #navigates to the ad catalog directory
+alias apdc="adcat && cd apiAdc"						   					    #navigates to the apiAdc directory
+alias wadc="adcat && cd webAdc"						   					    #navigates to the webAdc directory
+alias toalcyone="ssh administrator@alcyone"				   				    #ssh's to alcyone.roadmastergroup.com
 
-function mgrep(){							   #takes a string as arg. recursively greps for string in cwd, printing line nums
-	local input="$1"
-	grep -rn "$input" . 
-}       
-#----GITS----
-alias gits="git status"                                                    #shorthand for 'git status'
-alias gitl="git log -3"                                                    #shorthand for 'git log -3'
-function pmec() {                                                          #push mechanic: given a commit string, adds all, commits, and pushes
-        local input="$1"
-        git add . && git commit -m "$input" && git push 
-}
-#-------------------------------------------YARD---------------------------------------------------
-alias yard="cd /home/branwr/projects/YARD/yardChecks"				  #navigates to the yardChecks directory
-alias weby="cd /home/branwr/projects/YARD/yardChecks/webYard"			  #navigates to the webYard directory
-alias appy="cd /home/branwr/projects/YARD/yardChecks/apiYard"			  #navigates to the apiYard directory
-alias appyb="appy && go build -o yardcheck . && sudo setcap 'cap_net_bind_service=+ep' yardcheck && ./yardcheck --env-file .env" #navigates to the app build directory, builds, and sets port permissions
-alias webyb="weby && npx expo export --platform web"                                  #navigates to the webYard directory and builds the dist folder
-alias dtrb="cd /home/branwr/projects/YARD/create_data/deep-text-recognition-benchmark/dtrb" #navigates to the dtrb directory
-alias toyard="ssh yardcheck@yardcheck"                                            #ssh's to the yardcheck server
-alias testocr="cd /home/branwr/projects/YARD/yardChecks/apiYard/python_ocr/ && python3 easyocr_service.py /home/branwr/projects/YARD/create_data/deep-text-recognition-benchmark/synth_data/4567591.png" #run a test on the ocr
-alias bont='function _(){ cat /home/branwr/projects/YARD/create_data/synth_data/labels.txt | grep $1.png ;}; _' #temporary. test bad fonts
-#-------------------------------------------LAND---------------------------------------------------
-alias land="cd ~/projects/LAND/"                                           #navigates to the LAND directory
-alias landing="cd ~/projects/LAND/landing/"                                #navigates to the landing directory
-alias appl="landing && cd apiLand"					   #navigates to the apiLand directory
-alias webl="landing && cd webLand"					   #navigates to the webLand directory
-alias tohome="ssh home@home"                                               #ssh's to the home server
-#-------------------------------------------APBILL-------------------------------------------------
-alias apbill="cd ~/projects/APBILL/"					   #navigates to the auto APBILL directory
-alias apsign="cd ~/projects/APBILL/auto-ap-signing/"                       #navigates to the auto ap signing directory
-alias webas="apsign && cd webSign"					   #navigates to the auto ap web directory
-alias appas="apsign && cd apiSign"					   #navigates to the auto ap api directory
-alias appasb="appas && go build -o apsigner . && sudo setcap 'cap_net_bind_service=+ep' apsigner && ./apsigner" #navigates to the app build directory, builds, and sets port permissions
-alias tosignd="cd /var/lib/docker/volumes/sign-docs/_data/"	#navigates to docker apsign document dir. only root can do this
-#-------------------------------------------DEA----------------------------------------------------
-alias totow="tower ; ssh sil-605005@192.168.163.60 -X"                     #gets password and ssh's into tower
-alias cpjon="tower ; deaf ; scp -r ./* branwr@192.168.163.102:/home/branwr/fpga-mu/ && tojon"     #copies the fpgamu directory to jons vm
-
-alias ipadd='function _(){ echo "ip addr add 10.10.$1.1/24 dev br0" | xclip -selection clipboard ;}; _' #takes in a third octet for an ipv4 as arg. copies the ip adding command to clipboard
-alias keyad='function _(){ ssh-copy-id -i /home/branwr/.ssh/id_rsa.pub $1 ;}; _' #where $1 is the ip you are trying to make a key with
-alias lophp="tail -f /var/log/apache2/error.log"                           #tails the php error logs
-alias tunjon="ssh -L 2999:localhost:3000 branwr@192.168.163.102 -N"        #establishes an ssh tunnel to vmjon
-alias tunrad='function _(){ ssh -L 3000:localhost:80 root@10.10.$1.1 -N ;}; _' #given a 3rd octet, establishes an ssh tunnel to a radio
-alias webjon="deaw ; scp -r SecureDirectory/  vmjon:/home/branwr/websiterearchitechture/ && tojon" #copies website code to vmjon
-#-------------------------------------------CYOPIPE------------------------------------------------
-alias stig="cd ~/projects/STIG/"					   #navigates to STIG
-alias ccyo="cd /home/branwr/projects/CSR/CATCH/catch && go run . collection" #'c' stands for collection. navigates to catch and runs collection
-alias dlog="cat logging/DLOG.txt"                                          #cats dlog
-alias elog="cat logging/ELOG.txt"                                          #cats elog
-alias wlog="cat logging/WLOG.txt"                                          #cats wlog
-alias ilog="cat logging/ILOG.txt"                                          #cats ilog
-alias tunstig="ssh -L 3000:localhost:3000 branwr@catchdev1 -N"             #
-alias cyocap="sudo setcap cap_net_raw,cap_net_admin=eip ~/projects/CSR/CATCH/catch/catch-cli" # sets the pcap permission on the catch executable
-
-
-alias desc='function _(){ python3 ~/bin/getDesc.py $1 | xclip -selection clipboard ;}; _' #calls the getDesc.py script and copies results to clipboard
-#-------------------------------------------SMART--------------------------------------------------
-alias m2d='function _(){ pandoc -o $1.docx -f markdown -t docx $1.md ;}; _' #given an md file name BEFORE the .md extension, converts it to docx
-
-alias airs="docker exec -it -u root app-airflow-scheduler-1 bash"          #opens the airflow scheduler container
-alias cleansmart="app && toke && npm run dev:clean"                        #clean starts the smart app
-alias smartstart="app && npx -y mkdirp api/secrets && npm run check:mongo && npm run check:postgres && npm run check:fastify && npm run gittoken && docker compose --env-file=.env.dev up --watch --no-attach airflow-webserver" #did a lot of cool stuff
-#-------------------------------------------THROTL-------------------------------------------------
-alias throtlstart="throtl && docker compose up --watch --no-attach opensearch --no-attach opensearch-dashboards --no-attach jupyter" #starts throtl docker containers, not attaching to output of opensearch and jupyter
-#-------------------------------------------AUTOMATE-----------------------------------------------
-alias automat="cd ~/projects/AUTOMATION/automation-scripts/ ; ls"								#navigates to the automation-scripts directory
-alias flake="flake8 . --count --statistics --exclude=venv,.venv,env --max-complexity=10 --max-line-length=100 --exit-zero"	#runs the flake8 command with some arguments
-alias mplint="pylint --fail-under=8.0 **/*.py"											# runs the pylint command on all python files
-alias bordermain="cd ~/projects/AUTOMATION/automation-scripts/Border-Bond-Closing/ && ../.venv/bin/python3 border_main.py"						# runs the border_main.py script
-
-function notes(){
+function notes(){ 														    #navigates to the notes directory, prints git status, and prints the last modified date of traveler.md
 	cd ~/Documents/Notes && git status
 	highest_dir=$(ls -d */ 2>/dev/null | sed 's|/||' | sort -t'-' -k1 -nr | head -1)
 	if [ -z "$highest_dir" ]; then
@@ -129,3 +49,69 @@ function notes(){
 	echo -e "\ntraveler last modified:\n"
 	date -r $file_path
 }
+
+#----DOCK----
+alias dock="sudo docker"                                                    #shorthand for 'sudo docker'
+alias fixdock="sudo systemctl restart docker"                               #restarts docker (useful when unpausing VMs)
+alias rmvol='function _(){ docker volume rm $1 ;}; _'                       #shorthand to remove a specified volume
+#----FORM----
+alias lah="ls -lah"                                                         #shorthand for 'ls -lah'      
+alias duh="du -hd 1"                                                        #shorthand for 'du -hd 1'       
+alias tree1="tree . -L 1"                                                   #prints a 1 level deep tree in cwd               
+alias tree2="tree . -L 2"                                                   #prints a 2 level deep tree in cwd                       
+alias treen='function _(){ tree -L $1 ;}; _'                                #takes an int arg. prints an n level deep tree in cwd       
+
+function mgrep(){							   							    #takes a string as arg. recursively greps for string in cwd, printing line nums
+	local input="$1"
+	grep -rn "$input" . 
+}       
+#----GITS----
+alias gits="git status"                                                     #shorthand for 'git status'
+alias gitl="git log -3"                                                     #shorthand for 'git log -3'
+function pmec() {                                                           #push mechanic: given a commit string, adds all, commits, and pushes
+        local input="$1"
+        git add . && git commit -m "$input" && git push 
+}
+#-------------------------------------------YARD---------------------------------------------------
+alias yard="cd /home/branwr/projects/YARD/yardChecks"				  		#navigates to the yardChecks directory
+alias weby="cd /home/branwr/projects/YARD/yardChecks/webYard"			  	#navigates to the webYard directory
+alias appy="cd /home/branwr/projects/YARD/yardChecks/apiYard"			  	#navigates to the apiYard directory
+alias appyb="appy && go build -o yardcheck . && sudo setcap 'cap_net_bind_service=+ep' yardcheck && ./yardcheck --env-file .env" #navigates to the app build directory, builds, and sets port permissions
+alias webyb="weby && npx expo export --platform web"                        #navigates to the webYard directory and builds the dist folder
+alias dtrb="cd /home/branwr/projects/YARD/create_data/deep-text-recognition-benchmark/dtrb" #navigates to the dtrb directory
+alias toyard="ssh yardcheck@yardcheck"                                      #ssh's to the yardcheck server
+alias testocr="cd /home/branwr/projects/YARD/yardChecks/apiYard/python_ocr/ && python3 easyocr_service.py /home/branwr/projects/YARD/create_data/deep-text-recognition-benchmark/synth_data/4567591.png" #run a test on the ocr
+alias bont='function _(){ cat /home/branwr/projects/YARD/create_data/synth_data/labels.txt | grep $1.png ;}; _' #temporary. test bad fonts
+#-------------------------------------------LAND---------------------------------------------------
+alias land="cd ~/projects/LAND/"                                            #navigates to the LAND directory
+alias landing="cd ~/projects/LAND/landing/"                                 #navigates to the landing directory
+alias appl="landing && cd apiLand"					                        #navigates to the apiLand directory
+alias webl="landing && cd webLand"					                        #navigates to the webLand directory
+alias tohome="ssh home@home"                                                #ssh's to the home server
+#-------------------------------------------APBILL-------------------------------------------------
+alias apbill="cd ~/projects/APBILL/"					                    #navigates to the auto APBILL directory
+alias apsign="cd ~/projects/APBILL/auto-ap-signing/"                        #navigates to the auto ap signing directory
+alias webas="apsign && cd webSign"					                        #navigates to the auto ap web directory
+alias appas="apsign && cd apiSign"					                        #navigates to the auto ap api directory
+alias appasb="appas && go build -o apsigner . && sudo setcap 'cap_net_bind_service=+ep' apsigner && ./apsigner" #navigates to the app build directory, builds, and sets port permissions
+alias tosignd="cd /var/lib/docker/volumes/sign-docs/_data/"                 #navigates to docker apsign document dir. only root can do this
+#-------------------------------------------DEA----------------------------------------------------
+alias ipadd='function _(){ echo "ip addr add 10.10.$1.1/24 dev br0" | xclip -selection clipboard ;}; _' #takes in a third octet for an ipv4 as arg. copies the ip adding command to clipboard
+alias keyad='function _(){ ssh-copy-id -i /home/branwr/.ssh/id_rsa.pub $1 ;}; _' #where $1 is the ip you are trying to make a key with
+alias tunrad='function _(){ ssh -L 3000:localhost:80 root@10.10.$1.1 -N ;}; _' #given a 3rd octet, establishes an ssh tunnel to a radio
+#-------------------------------------------CYOPIPE------------------------------------------------
+alias stig="cd ~/projects/STIG/"					                        #navigates to STIG
+alias dlog="cat logging/DLOG.txt"                                           #cats dlog
+alias elog="cat logging/ELOG.txt"                                           #cats elog
+alias wlog="cat logging/WLOG.txt"                                           #cats wlog
+alias ilog="cat logging/ILOG.txt"                                           #cats ilog
+alias cyocap="sudo setcap cap_net_raw,cap_net_admin=eip ~/projects/CSR/CATCH/catch/catch-cli" # sets the pcap permission on the catch executable
+
+alias desc='function _(){ python3 ~/bin/getDesc.py $1 | xclip -selection clipboard ;}; _' #calls the getDesc.py script and copies results to clipboard
+#-------------------------------------------SMART--------------------------------------------------
+alias m2d='function _(){ pandoc -o $1.docx -f markdown -t docx $1.md ;}; _' #given an md file name BEFORE the .md extension, converts it to docx
+#-------------------------------------------AUTOMATE-----------------------------------------------
+alias automat="cd ~/projects/AUTOMATION/automation-scripts/ ; ls"		    #navigates to the automation-scripts directory
+alias flake="flake8 . --count --statistics --exclude=venv,.venv,env --max-complexity=10 --max-line-length=100 --exit-zero"	#runs the flake8 command with some arguments
+alias mplint="pylint --fail-under=8.0 **/*.py"								# runs the pylint command on all python files
+alias bordermain="cd ~/projects/AUTOMATION/automation-scripts/Border-Bond-Closing/ && ../.venv/bin/python3 border_main.py"						# runs the border_main.py script
