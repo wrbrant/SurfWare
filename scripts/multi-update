@@ -1,19 +1,51 @@
-#!/usr/bin/env bash
-set -euo pipefail
+#!/bin/bash
 
-HOSTS=("yardcheck@yardcheck" "gitlab@gitlab" "home@home")
+# List of machines to update
+MACHINES=(
+    "yardcheck@yardcheck"
+    "gitlab@gitlab"
+    "home@home"
+)
+
 REMOTE_CMDS='apt update && apt upgrade -y && snap refresh'
+
+# Temporary file to save output
+OUTPUT_FILE="/tmp/update_results.txt"
+
+# Clear the output file
+> "$OUTPUT_FILE"
+
 
 read -rsp "Enter sudo password for remote hosts: " SUDOPASS
 echo
 
-for h in "${HOSTS[@]}"; do
-  echo -e "\n===== Updating $h ====="
-  # We pipe the password into ssh so remote sudo can read it from stdin (-S).
-  # -p '' disables the sudo password prompt text so the prompt doesn't consume stdin.
-  if printf '%s\n' "$SUDOPASS" | ssh -o ConnectTimeout=10 "$h" "sudo -S -p '' bash -lc '$REMOTE_CMDS'"; then
-    echo "$h update complete"
+# Run commands on each machine
+for MACHINE in "${MACHINES[@]}"; do
+    echo "Updating $MACHINE..." | tee -a "$OUTPUT_FILE"
+  if printf '%s\n' "$SUDOPASS" | ssh -o ConnectTimeout=10 "$MACHINE" "sudo -S -p '' bash -lc '$REMOTE_CMDS'" >> "$OUTPUT_FILE" 2>&1; then
+    echo "$MACHINE update complete" | tee -a "$OUTPUT_FILE"
   else
-    echo "ERROR: update failed on $h" >&2
+    echo "ERROR: update failed on $MACHINE" | tee -a "$OUTPUT_FILE" >&2
   fi
 done
+
+# Email the results
+SUBJECT="Update Results for All Machines"
+EMAIL="will.brant@roadmastergroup.com"
+#EMAIL="wrbrant23@gmail.com"
+
+if command -v mail &> /dev/null; then
+    cat "$OUTPUT_FILE" | mail -s "$SUBJECT" "$EMAIL"
+elif command -v sendmail &> /dev/null; then
+    {
+        echo "To: $EMAIL"
+        echo "Subject: $SUBJECT"
+        echo
+        cat "$OUTPUT_FILE"
+    } | sendmail -t
+else
+    echo "No mail command found to send output. Please install 'mail' or 'sendmail'."
+fi
+
+# Clean up
+# rm "$OUTPUT_FILE"
