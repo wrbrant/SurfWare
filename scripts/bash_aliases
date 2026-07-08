@@ -2,8 +2,8 @@
 #===========================================UTILITY================================================
 #----SHVM----
 alias remount="sudo /usr/bin/vmhgfs-fuse .host:/ /mnt/hgfs -o subtype=vmhgfs-fuse,allow_other" #remounts the shared folder
-alias cptool='function _(){ cp $1 /mnt/hgfs/shareVM ; }; _'                #takes a file as arg. copies file from shared folder to current directory
-alias mvtool='function _(){ mv $1 /mnt/hgfs/shareVM ; }; _'                #takes a file as arg. moves file from shared folder to current directory
+alias cptool='function _(){ cp $1 /mnt/brantw ; }; _'                #takes a file as arg. copies file from shared folder to current directory
+alias mvtool='function _(){ mv $1 /mnt/brantw ; }; _'                #takes a file as arg. moves file from shared folder to current directory
 #----TOOL----
 alias ttm="cd ~/projects/SURF/ttm/pyTTM/ ; poetry run python3 ttm.py"                 #opens the ttm timer
 alias mytop="watch -n .5 free -l -h"                                       #does a fancy process watch
@@ -29,7 +29,10 @@ alias down="cd ~/Downloads ; ls"                                           #navi
 alias poi="cd ~/projects ; ls"                                             #navigates to projects directory and lists contents
 alias surf="cd ~/projects/SURF/ ; ls"                                      #navigates to SURF directory and lists contents
 alias bin="cd ~/bin ; ls"                                                  #navigates to bin directory and lists contents
-alias notes="cd ~/Documents/Notes && git status"                           #navigates to projects directory and checks git status
+alias adcat="cd ~/projects/ADCATALOG/ADCatalog/"			   #navigates to the ad catalog directory
+alias apdc="adcat && cd apiAdc"						   #navigates to the apiAdc directory
+alias wadc="adcat && cd webAdc"						   #navigates to the webAdc directory
+alias toalcyone="ssh administrator@alcyone"				   #ssh's to alcyone.roadmastergroup.com
 #----DOCK----
 alias dock="sudo docker"                                                   #shorthand for 'sudo docker'
 alias fixdock="sudo systemctl restart docker"                              #restarts docker (useful when unpausing VMs)
@@ -56,9 +59,9 @@ function pmec() {                                                          #push
 alias yard="cd /home/branwr/projects/YARD/yardChecks"				  #navigates to the yardChecks directory
 alias weby="cd /home/branwr/projects/YARD/yardChecks/webYard"			  #navigates to the webYard directory
 alias appy="cd /home/branwr/projects/YARD/yardChecks/apiYard"			  #navigates to the apiYard directory
-alias appyb="appy && go build -o yardcheck . && sudo setcap 'cap_net_bind_service=+ep' yardcheck && ./yardcheck" #navigates to the app build directory, builds, and sets port permissions
+alias appyb="appy && go build -o yardcheck . && sudo setcap 'cap_net_bind_service=+ep' yardcheck && ./yardcheck --env-file .env" #navigates to the app build directory, builds, and sets port permissions
 alias webyb="weby && npx expo export --platform web"                                  #navigates to the webYard directory and builds the dist folder
-alias dtrb="/home/branwr/projects/YARD/create_data/deep-text-recognition-benchmark/dtrb" #navigates to the dtrb directory
+alias dtrb="cd /home/branwr/projects/YARD/create_data/deep-text-recognition-benchmark/dtrb" #navigates to the dtrb directory
 alias toyard="ssh yardcheck@yardcheck"                                            #ssh's to the yardcheck server
 alias testocr="cd /home/branwr/projects/YARD/yardChecks/apiYard/python_ocr/ && python3 easyocr_service.py /home/branwr/projects/YARD/create_data/deep-text-recognition-benchmark/synth_data/4567591.png" #run a test on the ocr
 alias bont='function _(){ cat /home/branwr/projects/YARD/create_data/synth_data/labels.txt | grep $1.png ;}; _' #temporary. test bad fonts
@@ -74,6 +77,7 @@ alias apsign="cd ~/projects/APBILL/auto-ap-signing/"                       #navi
 alias webas="apsign && cd webSign"					   #navigates to the auto ap web directory
 alias appas="apsign && cd apiSign"					   #navigates to the auto ap api directory
 alias appasb="appas && go build -o apsigner . && sudo setcap 'cap_net_bind_service=+ep' apsigner && ./apsigner" #navigates to the app build directory, builds, and sets port permissions
+alias tosignd="cd /var/lib/docker/volumes/sign-docs/_data/"	#navigates to docker apsign document dir. only root can do this
 #-------------------------------------------DEA----------------------------------------------------
 alias totow="tower ; ssh sil-605005@192.168.163.60 -X"                     #gets password and ssh's into tower
 alias cpjon="tower ; deaf ; scp -r ./* branwr@192.168.163.102:/home/branwr/fpga-mu/ && tojon"     #copies the fpgamu directory to jons vm
@@ -104,8 +108,24 @@ alias cleansmart="app && toke && npm run dev:clean"                        #clea
 alias smartstart="app && npx -y mkdirp api/secrets && npm run check:mongo && npm run check:postgres && npm run check:fastify && npm run gittoken && docker compose --env-file=.env.dev up --watch --no-attach airflow-webserver" #did a lot of cool stuff
 #-------------------------------------------THROTL-------------------------------------------------
 alias throtlstart="throtl && docker compose up --watch --no-attach opensearch --no-attach opensearch-dashboards --no-attach jupyter" #starts throtl docker containers, not attaching to output of opensearch and jupyter
+#-------------------------------------------AUTOMATE-----------------------------------------------
+alias automat="cd ~/projects/AUTOMATION/automation-scripts/ ; ls"								#navigates to the automation-scripts directory
+alias flake="flake8 . --count --statistics --exclude=venv,.venv,env --max-complexity=10 --max-line-length=100 --exit-zero"	#runs the flake8 command with some arguments
+alias mplint="pylint --fail-under=8.0 **/*.py"											# runs the pylint command on all python files
+alias bordermain="cd ~/projects/AUTOMATION/automation-scripts/Border-Bond-Closing/ && ../.venv/bin/python3 border_main.py"						# runs the border_main.py script
 
-alias adcat="cd ~/projects/ADCATALOG/ADCatalog/"	#navigates to the ad catalog directory
-alias apdc="adcat && cd apiAdc"	#navigates to the apiAdc directory
-alias wadc="adcat && cd webAdc"	#navigates to the webAdc directory
-
+function notes(){
+	cd ~/Documents/Notes && git status
+	highest_dir=$(ls -d */ 2>/dev/null | sed 's|/||' | sort -t'-' -k1 -nr | head -1)
+	if [ -z "$highest_dir" ]; then
+	  echo "No directories found"
+	  exit 1
+	fi
+	file_path="${highest_dir}/traveler.md"
+	if [ ! -f "$file_path" ]; then
+	  echo "File not found: $file_path"
+	  exit 1
+	fi
+	echo -e "\ntraveler last modified:\n"
+	date -r $file_path
+}
